@@ -1,17 +1,33 @@
 {% extends 'base.html' %} {% block content %}
 <h3>Add Place Name</h3>
 <div class="row">
-    <form  action="" method="POST" class="col s12">
+    <form action="" method="POST" class="col s12">
         <div class="row">
-            <div class="input-field col s6">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="icon_prefix" type="text" class="validate">
-                <label for="icon_prefix">First Name</label>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input id="eng_name" name="eng_name" type="text">
+                <label for="icon_prefix">English Name</label>
             </div>
-            <div class="input-field col s6">
-                <i class="material-icons prefix">phone</i>
-                <input id="icon_telephone" type="tel" class="validate">
-                <label for="icon_telephone">Telephone</label>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input id="irl_name" name="irl_name" type="text">
+                <label for="icon_prefix">Irish Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea id="irl_meaning" name="irl_meaning" class="materialize-textarea"></textarea>
+                <label for="icon_telephone">Irish name meaning</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea name="history" id="history" class="materialize-textarea"></textarea>
+                <label for="icon_telephone">History or area</label>
             </div>
         </div>
     </form>
