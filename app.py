@@ -33,6 +33,19 @@ def edit_place_name(place_name_id):
     return render_template('editPlaceName.html', place_name=the_place_name,
                            locations=all_locations) 
 
+@app.route('/update_place_name/<place_name_id>', methods=["POST"])
+def update_place_name(place_name_id):
+    place_names = mongo.db.place_names
+    place_names.update( {'_id': ObjectId(place_name_id)},
+    {
+        'eng_name':request.form.get('eng_name'),
+        'irl_name':request.form.get('irl_name'),
+        'irl_meaning': request.form.get('irl_meaning'),
+        'history': request.form.get('history'),
+        'location':request.form.get('location')
+    })
+    return redirect(url_for('get_place_names'))
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
