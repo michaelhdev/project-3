@@ -5,7 +5,19 @@
     {% for place_name in place_names %}
         <li>
             <div class="collapsible-header">
-                <i class="material-icons">expand_more</i><strong>{{place_name.eng_name}}</strong> - {{place_name.irl_name}}
+              
+                <div class="task_header col s9 ">
+                    
+                    <strong>{{place_name.eng_name}}</strong> - {{place_name.irl_name}}
+                    
+                </div>
+            
+                <div class="col s3">
+                    <i class="material-icons">expand_more</i>
+                    <a class="waves-effect waves-light btn btn_small">Done</a>
+                    <a class="waves-effect waves-light btn btn_small blue">Edit</a>
+                    
+                </div>
             </div>
             <div class="collapsible-body">
                 <div>
