@@ -25,7 +25,13 @@ def insert_place_name():
     place_names = mongo.db.place_names
     place_names.insert_one(request.form.to_dict())
     return redirect(url_for('get_place_names'))
- 
+
+@app.route('/edit_place_name/<place_name_id>')
+def edit_place_name(place_name_id):
+    the_place_name =  mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+    all_locations =  mongo.db.locations.find()
+    return render_template('editPlaceName.html', place_name=the_place_name,
+                           locations=all_locations) 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
