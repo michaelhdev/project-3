@@ -8,12 +8,19 @@
                 <i class="material-icons">expand_more</i><strong>{{place_name.eng_name}}</strong> - {{place_name.irl_name}}
             </div>
             <div class="collapsible-body">
-                <span>
-                    {{place_name.irl_meaning}}
-                </span>
-                <span>
-                     {{place_name.history}}
-                </span>
+                <div>
+                    <h5>Irish Name</h5>
+                    <p>{{place_name.irl_name}}</p>
+                </div>
+                <div>
+                    <h5>Irish Name Meaning</h5>
+                    <p>{{place_name.irl_meaning}}</p>
+                </div>
+                <div>
+                    <h5>History of Area</h5>
+                    <p>{{place_name.history}}</p>
+                     
+                </div>
             </div>
         </li>
         {% endfor %}

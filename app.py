@@ -16,8 +16,16 @@ def get_place_names():
     return render_template("placeNames.html", place_names=mongo.db.place_names.find())
 
 @app.route('/add_place_name')
-def add_task():
-    return render_template('addPlaceName.html')
+def add_place_name():
+    return render_template('addPlaceName.html',
+                           locations=mongo.db.locations.find())
+                           
+@app.route('/insert_place_name', methods=['POST'])
+def insert_place_name():
+    place_names = mongo.db.place_names
+    place_names.insert_one(request.form.to_dict())
+    return redirect(url_for('get_place_names'))
+ 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
