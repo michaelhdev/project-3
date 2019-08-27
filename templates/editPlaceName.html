@@ -7,8 +7,13 @@
                     <i class="material-icons prefix">poll</i>
                     <select id="location" name="location">
                   <option value="" disabled selected>Choose Location</option>
+                  
                   {% for location in locations %}
-                      <option value="{{location.location_name}}">{{location.location_name}}</option>
+                      {% if location.location_name == place_name.location%}
+                      <option value="{{location.location_name}}" selected >{{location.location_name}}</option>
+                      {% else %}
+                       <option value="{{location.location_name}}">{{location.location_name}}</option>
+                    {% endif %}
                   {% endfor %}
                 </select>
                     <label>Place name location</label>
@@ -17,33 +22,33 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">assignment</i>
-                <input id="eng_name" name="eng_name" type="text">
+                <input id="eng_name" name="eng_name" type="text" value="{{place_name.eng_name}}">
                 <label for="icon_prefix">English Name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">assignment</i>
-                <input id="irl_name" name="irl_name" type="text">
+                <input id="irl_name" name="irl_name" type="text" value="{{place_name.irl_name}}">
                 <label for="icon_prefix">Irish Name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
-                <textarea id="irl_meaning" name="irl_meaning" class="materialize-textarea"></textarea>
+                <textarea id="irl_meaning" name="irl_meaning" class="materialize-textarea">{{place_name.irl_meaning}}</textarea>
                 <label for="icon_telephone">Irish name meaning</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
-                <textarea name="history" id="history" class="materialize-textarea"></textarea>
+                <textarea name="history" id="history" class="materialize-textarea" >{{place_name.history}}</textarea>
                 <label for="icon_telephone">History of area</label>
             </div>
         </div>
         <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Add Place Name
+            <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes
                 <i class="material-icons right">playlist_add</i>
              </button>
         </div>
