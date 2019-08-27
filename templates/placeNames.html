@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        
-    </head>
-    <body>
-         {% for place_name in place_names %}
-            {{place_name.eng_name}}
-            {{place_name.irl_name}}
-            {{place_name.irl_meaning}}
-            {{place_name.history}}
-        {% endfor %}
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+{% for place_name in place_names %}
+    {{place_name.eng_name}}
+    {{place_name.irl_name}}
+    {{place_name.irl_meaning}}
+    {{place_name.history}}
+{% endfor %}
+{% endblock %}
