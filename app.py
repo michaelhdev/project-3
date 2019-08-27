@@ -15,6 +15,9 @@ mongo = PyMongo(app)
 def get_place_names():
     return render_template("placeNames.html", place_names=mongo.db.place_names.find())
 
+@app.route('/add_place_name')
+def add_task():
+    return render_template('addPlaceName.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
