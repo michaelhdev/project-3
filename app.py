@@ -50,6 +50,11 @@ def update_place_name(place_name_id):
 def delete_place_name(place_name_id):
     mongo.db.place_names.remove({'_id': ObjectId(place_name_id)})
     return redirect(url_for('get_place_names'))
+    
+@app.route('/get_locations')
+def get_locations():
+    return render_template('locations.html',
+                           locations=mongo.db.locations.find())    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
