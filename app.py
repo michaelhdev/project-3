@@ -70,10 +70,21 @@ def update_location(location_id):
         {'location_name': request.form.get('location_name')})
     return redirect(url_for('get_locations'))
     
-@app.route('/delete_location/location_id>')
+@app.route('/delete_location/<location_id>')
 def delete_location(location_id):
     mongo.db.locations.remove({'_id': ObjectId(location_id)})
     return redirect(url_for('get_locations'))
+    
+@app.route('/insert_location', methods=['POST'])
+def insert_location():
+    location_doc = {'location_name': request.form.get('location_name')}
+    mongo.db.locations.insert_one(location_doc)
+    return redirect(url_for('get_locations'))
+
+
+@app.route('/add_location')
+def add_location():
+    return render_template('addLocation.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
