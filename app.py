@@ -54,7 +54,22 @@ def delete_place_name(place_name_id):
 @app.route('/get_locations')
 def get_locations():
     return render_template('locations.html',
-                           locations=mongo.db.locations.find())    
+                           locations=mongo.db.locations.find())  
+                           
+@app.route('/edit_location/<location_id>')
+def edit_location(location_id):
+    return render_template('editLocation.html',
+                           location=mongo.db.locations.find_one(
+                           {'_id': ObjectId(location_id)}))
+
+
+@app.route('/update_location/<location_id>', methods=['POST'])
+def update_location(location_id):
+    mongo.db.locations.update(
+        {'_id': ObjectId(location_id)},
+        {'location_name': request.form.get('location_name')})
+    return redirect(url_for('get_locations'))
+    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
