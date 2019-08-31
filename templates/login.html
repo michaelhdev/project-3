@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h3>Login</h3>
+<form action="{{ url_for('login') }}" method="POST">
+                <div class="row">
+                     <div class="input-field col s12">
+                        <input id="username" name="username" type="text" class="validate" minlength="2" required>
+                        <label for="username">Username</label>
+                    </div>
+                    
+                    <div class="center-align col s12">
+                        <button id="index_submit" class="btn waves-effect waves-light btn_large deep-orange" type="submit">Log in
+                                        <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                                        
+                    <div>
+                        {% with errors = get_flashed_messages() %} 
+                        {% if errors %} 
+                        <ul class="center-align ">
+                            {% for error in errors %}
+                            <li><strong>{{ error }}</strong></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %} {% endwith %}
+                    </div>
+                
+                </div>
+            </form>
+{% endblock %}
