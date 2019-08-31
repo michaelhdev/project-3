@@ -92,16 +92,16 @@ def add_location():
 @app.route("/get_users")
 def get_users():
     return render_template("users.html",
-                           locations=mongo.db.locations.find())  
+                           users=mongo.db.users.find())  
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
     return render_template("editUser.html",
-                           location=mongo.db.users.find_one(
+                           users=mongo.db.users.find_one(
                            {"_id": ObjectId(user_id)}))
 
 
-@app.route("/update_location/<location_id>", methods=["POST"])
+"""@app.route("/update_location/<location_id>", methods=["POST"])
 def update_location(location_id):
     mongo.db.locations.update(
         {"_id": ObjectId(location_id)},
@@ -122,7 +122,7 @@ def insert_location():
 
 @app.route("/add_location")
 def add_location():
-    return render_template("addLocation.html")
+    return render_template("addLocation.html")"""
 #############################################################
 
 @app.route("/login_page")
