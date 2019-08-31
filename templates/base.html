@@ -19,9 +19,9 @@
                     <li><a href="#">Welcome {{ session['name'].title() }}</a></li>
                     <li><a href="{{url_for('logout')}}">Log Out</a></li>
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                    <li><a href="{{url_for('add_place_name')}}">Add Place Name</a></li>
                     {% if session['admin'] %}
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
+                    <li><a href="{{url_for('get_users')}}">Manage Users</a></li>
                     {% endif %}
                     {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
@@ -33,9 +33,9 @@
                     <li><a href="#">Welcome {{ session['name'].title() }}</a></li>
                     <li><a href="{{url_for('logout')}}">Log Out</a></li>
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                    <li><a href="{{url_for('add_place_name')}}">Add Place Name</a></li>
                     {% if session['admin'] %}
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
+                    <li><a href="{{url_for('get_users')}}">Manage Users</a></li>
                     {% endif %}
                     {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
@@ -52,6 +52,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.collapsible').collapsible();
@@ -59,6 +60,16 @@
             $(".button-collapse").sideNav();
 
         })
+        
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+        
     </script>
     <footer class="page-footer">
           <div class="container">

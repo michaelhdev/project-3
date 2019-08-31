@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, session, f
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId 
 
+
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = "place_names_site"
 app.secret_key = os.urandom(24)
@@ -93,6 +94,10 @@ def add_location():
 def get_users():
     return render_template("users.html",
                            users=mongo.db.users.find())  
+
+@app.route("/add_user")
+def add_user():
+    return render_template("addUser.html")
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
@@ -120,9 +125,7 @@ def insert_location():
     return redirect(url_for("get_locations"))
 
 
-@app.route("/add_location")
-def add_location():
-    return render_template("addLocation.html")"""
+"""
 #############################################################
 
 @app.route("/login_page")
@@ -173,6 +176,9 @@ def add_dislike(place_name_id):
     mongo.db.place_names.update( {"_id": ObjectId(place_name_id)}, { "$set": {"likes": updated_likes}})
     
     return redirect(url_for('get_place_names'))
+    
+###############################################################################
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

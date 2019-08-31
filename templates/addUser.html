@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<h3>Add User</h3>
+<div class="row">
+    <form action="" method="POST" class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input id="name" name="name" type="text">
+                <label for="icon_prefix">Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input id="user_name" name="user_name" type="text">
+                <label for="icon_prefix">User Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">today</i>
+                <input id="due_date" name="due_date" type="text" class="datepicker">
+                <label for="icon_prefix">Date of Birth</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="switch">
+                <label>
+                  <input id="admin" name="admin" type="checkbox" checked readonly>
+                  <span class="lever"></span>
+                  Admin
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
