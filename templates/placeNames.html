@@ -5,6 +5,10 @@
     <a href="{{url_for('add_place_name')}}" class="waves-effect waves-light btn btn_large green"><i class="fas fa-plus"></i> Add Place Name </a>
 {% endif %}
 
+<div>
+        <p><strong>Showing '{{ place_names.count() }}' place names</strong></p>
+</div>
+    
 <ul class="collapsible" data-collapsible="accordion">
     {% for place_name in place_names %}
         <li>
