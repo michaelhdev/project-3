@@ -113,13 +113,12 @@ def edit_user(user_id):
                            user=mongo.db.users.find_one(
                            {"_id": ObjectId(user_id)}))
 
-
-"""@app.route("/update_location/<location_id>", methods=["POST"])
-def update_location(location_id):
-    mongo.db.locations.update(
-        {"_id": ObjectId(location_id)},
-        {"location_name": request.form.get("location_name")})
-    return redirect(url_for("get_locations"))
+@app.route("/update_user/<user_id>", methods=["POST"])
+def update_user(user_id):
+    user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+    mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
+    return redirect(url_for("get_users"))
+"""
     
 @app.route("/delete_location/<location_id>")
 def delete_location(location_id):

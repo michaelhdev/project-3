@@ -5,6 +5,7 @@
     <h3>Users</h3>
     <ul class="collapsible" data-collapsible="accordion">
         {% for user in users %}
+        {% if user['admin'] == "False" %}
         <li>
             <div class="collapsible-header">
                 <a href="#" class="waves-effect waves-light btn btn_small">Del</a>
@@ -15,6 +16,7 @@
                 </div>
             </div>
         </li>
+        {% endif %}
         {% endfor %}
 
     </ul>
