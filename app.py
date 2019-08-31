@@ -52,6 +52,8 @@ def delete_place_name(place_name_id):
     mongo.db.place_names.remove({"_id": ObjectId(place_name_id)})
     return redirect(url_for("get_place_names"))
     
+####################################################################
+    
 @app.route("/get_locations")
 def get_locations():
     return render_template("locations.html",
@@ -86,7 +88,43 @@ def insert_location():
 @app.route("/add_location")
 def add_location():
     return render_template("addLocation.html")
+#############################################################
+@app.route("/get_users")
+def get_users():
+    return render_template("users.html",
+                           locations=mongo.db.locations.find())  
+                           
+@app.route("/edit_location/<location_id>")
+def edit_location(location_id):
+    return render_template("editLocation.html",
+                           location=mongo.db.locations.find_one(
+                           {"_id": ObjectId(location_id)}))
+
+
+@app.route("/update_location/<location_id>", methods=["POST"])
+def update_location(location_id):
+    mongo.db.locations.update(
+        {"_id": ObjectId(location_id)},
+        {"location_name": request.form.get("location_name")})
+    return redirect(url_for("get_locations"))
     
+@app.route("/delete_location/<location_id>")
+def delete_location(location_id):
+    mongo.db.locations.remove({"_id": ObjectId(location_id)})
+    return redirect(url_for("get_locations"))
+    
+@app.route("/insert_location", methods=["POST"])
+def insert_location():
+    location_doc = {"location_name": request.form.get("location_name")}
+    mongo.db.locations.insert_one(location_doc)
+    return redirect(url_for("get_locations"))
+
+
+@app.route("/add_location")
+def add_location():
+    return render_template("addLocation.html")
+#############################################################
+
 @app.route("/login_page")
 def login_page():
     return render_template("login.html")
@@ -115,7 +153,8 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('get_place_names'))
-    
+
+##############################################################################    
 
 @app.route("/add_like/<place_name_id>")
 def add_like(place_name_id):
