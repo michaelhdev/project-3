@@ -94,11 +94,11 @@ def get_users():
     return render_template("users.html",
                            locations=mongo.db.locations.find())  
                            
-@app.route("/edit_location/<location_id>")
-def edit_location(location_id):
-    return render_template("editLocation.html",
-                           location=mongo.db.locations.find_one(
-                           {"_id": ObjectId(location_id)}))
+@app.route("/edit_user/<user_id>")
+def edit_user(user_id):
+    return render_template("editUser.html",
+                           location=mongo.db.users.find_one(
+                           {"_id": ObjectId(user_id)}))
 
 
 @app.route("/update_location/<location_id>", methods=["POST"])
