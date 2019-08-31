@@ -16,14 +16,11 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if session['username'] %}
                     <li><a href="#">Welcome {{ session['name'].title() }}</a></li>
+                    <li><a href="{{url_for('logout')}}">Log Out</a></li>
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                    <li><a href="{{url_for('add_place_name')}}">New Place Name</a></li>
-                    <li><a href="#">Log Out</a></li>
+                    <li><a href="{{url_for('add_place_name')}}">Add Place Name</a></li>
                     {% if session['admin'] %}
-                    <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                     <li><a href="{{url_for('add_place_name')}}">New Place Name</a></li>
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
-                     <li><a href="#">Log Out</a></li>
                     {% endif %}
                     {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
@@ -33,14 +30,11 @@
                 <ul class="side-nav" id="mobile-demo">
                      {% if session['username'] %}
                     <li><a href="#">Welcome {{ session['name'].title() }}</a></li>
+                    <li><a href="{{url_for('logout')}}">Log Out</a></li>
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                    <li><a href="{{url_for('add_place_name')}}">New Place Name</a></li>
-                    <li><a href="#">Log Out</a></li>
+                    <li><a href="{{url_for('add_place_name')}}">Add Place Name</a></li>
                     {% if session['admin'] %}
-                    <li><a href="{{url_for('get_place_names')}}">Home</a></li>
-                     <li><a href="{{url_for('add_place_name')}}">New Place Name</a></li>
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
-                     <li><a href="#">Log Out</a></li>
                     {% endif %}
                     {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>

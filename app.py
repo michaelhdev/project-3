@@ -101,12 +101,21 @@ def login():
         session['username'] = request.form['username'].lower()
         name = user["name"].split(" ")[0]
         session['name'] = name
-        session['admin'] = user["admin"]
-        return redirect(url_for("placeNames"))
+       
+        if user["admin"]=="True":
+            session['admin'] = user["admin"]
+        
+        return redirect(url_for("get_place_names"))
     else:
         # user not found! -  Not registered/typo
         flash("Username '{}' is invalid.".format(request.form["username"]))
         return redirect(url_for("login_page"))
+        
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('get_place_names'))
+    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
