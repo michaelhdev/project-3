@@ -90,6 +90,8 @@ def insert_location():
 def add_location():
     return render_template("addLocation.html")
 #############################################################
+
+    
 @app.route("/get_users")
 def get_users():
     return render_template("users.html",
@@ -98,11 +100,17 @@ def get_users():
 @app.route("/add_user")
 def add_user():
     return render_template("addUser.html")
+    
+@app.route("/insert_user", methods=["POST"])
+def insert_user():
+    user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+    mongo.db.users.insert_one(user_doc)
+    return redirect(url_for("get_users"))
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
     return render_template("editUser.html",
-                           users=mongo.db.users.find_one(
+                           user=mongo.db.users.find_one(
                            {"_id": ObjectId(user_id)}))
 
 
@@ -118,11 +126,7 @@ def delete_location(location_id):
     mongo.db.locations.remove({"_id": ObjectId(location_id)})
     return redirect(url_for("get_locations"))
     
-@app.route("/insert_location", methods=["POST"])
-def insert_location():
-    location_doc = {"location_name": request.form.get("location_name")}
-    mongo.db.locations.insert_one(location_doc)
-    return redirect(url_for("get_locations"))
+
 
 
 """
