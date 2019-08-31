@@ -95,7 +95,7 @@ def login_page():
 def login():
    
     users = mongo.db.users
-    user = users.find_one({"username": request.form["username"].lower()})
+    user = users.find_one({"userName": request.form["username"].lower()})
     
     if user:
         session['username'] = request.form['username'].lower()
@@ -105,7 +105,7 @@ def login():
         return redirect(url_for("placeNames"))
     else:
         # user not found! -  Not registered/typo
-        flash("Username '{}' is invalid. Please sign up!".format(request.form["username"].lower()))
+        flash("Username '{}' is invalid.".format(request.form["username"]))
         return redirect(url_for("login_page"))
 
 if __name__ == '__main__':
