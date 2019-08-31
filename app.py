@@ -53,6 +53,11 @@ def delete_place_name(place_name_id):
     mongo.db.place_names.remove({"_id": ObjectId(place_name_id)})
     return redirect(url_for("get_place_names"))
     
+@app.route("/sort_place_names", methods=["POST"])
+def sort_place_names():
+    
+    return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort(request.form.get("sort_by"),1))
+    
 ####################################################################
     
 @app.route("/get_locations")
