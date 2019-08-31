@@ -111,11 +111,29 @@ def login():
         flash("Username '{}' is invalid.".format(request.form["username"]))
         return redirect(url_for("login_page"))
         
-@app.route('/logout')
+@app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for('get_place_names'))
     
+
+@app.route("/add_like/<place_name_id>")
+def add_like(place_name_id):
+    place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+    current_likes = place_name["likes"]
+    updated_likes = current_likes + 1
+    mongo.db.place_names.update( {"_id": ObjectId(place_name_id)}, { "$set": {"likes": updated_likes}})
+    
+    return redirect(url_for('get_place_names'))
+    
+@app.route("/add_dislike/<place_name_id>")
+def add_dislike(place_name_id):
+    place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+    current_likes = place_name["likes"]
+    updated_likes = current_likes - 1
+    mongo.db.place_names.update( {"_id": ObjectId(place_name_id)}, { "$set": {"likes": updated_likes}})
+    
+    return redirect(url_for('get_place_names'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
