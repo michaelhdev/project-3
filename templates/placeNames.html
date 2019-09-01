@@ -8,6 +8,7 @@
 <div class="card">
 <div class="card-content">
     <div class="row">
+        <strong>Sort By</strong>
         <form action="{{ url_for('sort_place_names')}}" method="POST" >
             <div class="col s8">
                 <select name="sort_by" id="sort_by" >
@@ -34,7 +35,7 @@
               
                 <div class="task_header col s6 ">
                     
-                    <strong>{{place_name.eng_name}}</strong> - {{place_name.irl_name}}
+                    <strong>{{place_name.eng_name}}</strong> : {{place_name.irl_name}} - <strong> Location </strong> :{{place_name.location}} - <strong>Likes</strong> : {{place_name.likes}}
                     
                 </div>
             
@@ -50,15 +51,13 @@
                     {% endif %}
                     
                 </div>
-                 <div style="margin: auto; position: relative; float: right;" class="col s3">
-                    
-                    <a href="{{url_for('add_like', place_name_id=place_name._id)}}"><i class="fas fa-thumbs-up"></i></a>
-                    <strong>Likes</strong> - {{place_name.likes}}
-                    <a href="{{url_for('add_dislike', place_name_id=place_name._id)}}"><i class="fas fa-thumbs-down"></i></a>
-                    
-                </div>
             </div>
             <div class="collapsible-body">
+                <div style="text-align: right;">
+                    <strong>Like - </strong><a href="{{url_for('add_like', place_name_id=place_name._id)}}"><i class="fas fa-thumbs-up"></i></a>
+                    
+                    <strong>Dislike - </strong><a href="{{url_for('add_dislike', place_name_id=place_name._id)}}"><i class="fas fa-thumbs-down"></i></a>
+                </div>
                 <div>
                     <h5>Irish Name</h5>
                     <p>{{place_name.irl_name}}</p>
