@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <h3>Add Place Name</h3>
 <div class="row">
-    <form action="{{ url_for('insert_place_name') }}" method="POST" class="col s12">
+    <form name="placeNameForm" action="{{ url_for('insert_place_name') }}" method="POST" onsubmit="return validatePlaceNameForm()" class="col s12">
         <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">poll</i>

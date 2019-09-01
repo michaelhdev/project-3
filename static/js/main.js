@@ -23,3 +23,27 @@ function validateUserForm() {
     return false;
   }
 }
+
+function validatePlaceNameForm() {
+  var location_value = document.forms["placeNameForm"]["location"].value;
+  var eng_name_value = document.forms["placeNameForm"]["eng_name"].value;
+  var irl_name_value = document.forms["placeNameForm"]["irl_name"].value;
+  var irl_meaning_value = document.forms["placeNameForm"]["irl_meaning"].value;
+  
+  if (location_value == "") {
+    alert("Location must be selected");
+    return false;
+  }
+  if (eng_name_value == "") {
+    alert("English name must be filled out");
+    return false;
+  }
+  if (irl_name_value == "") {
+    alert("Irish name must be filled out");
+    return false;
+  }
+  if (irl_meaning_value == "") {
+    alert("Irish Meaning must be filled out");
+    return false;
+  }
+}
