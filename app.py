@@ -25,7 +25,15 @@ def add_place_name():
 @app.route("/insert_place_name", methods=["POST"])
 def insert_place_name():
     place_names = mongo.db.place_names
-    place_names.insert_one(request.form.to_dict())
+    place_names.insert_one(
+        {
+        "eng_name":request.form.get("eng_name"),
+        "irl_name":request.form.get("irl_name"),
+        "irl_meaning": request.form.get("irl_meaning"),
+        "history": request.form.get("history"),
+        "location":request.form.get("location"),
+        "likes":0
+    })
     the_active_place_name =request.form.get("eng_name")
     the_place_names =  mongo.db.place_names.find()
     return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 

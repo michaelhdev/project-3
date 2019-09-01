@@ -1,21 +1,25 @@
-function liveSearch(value){
-				value = value.trim(); // remove any spaces around the text
-				if(value != ""){ // don't make requests with an empty string
-					$.ajax({
-						url: "search",
-						data: {searchText: value},
-						dataType: "json",
-						success: function(data){
-							var res = "";
-							// create the html with results
-							for(i in data.results){
-								res += "<div>"+data.results[i]+"</div>";
-							}
-							$("#results").html(res);
-						}
-					});
-				}
-				else{
-					$("#results").html(""); // set the results empty in case of empty string
-				}
-			}
+function validateLocationForm() {
+  var location_name_value = document.forms["locationForm"]["location_name"].value;
+  if (location_name_value == "") {
+    alert("Location name must be filled out");
+    return false;
+  }
+}
+
+function validateUserForm() {
+  var name_value = document.forms["userForm"]["name"].value;
+  var user_name_value = document.forms["userForm"]["user_name"].value;
+  var dob_value = document.forms["userForm"]["dob"].value;
+  if (name_value == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+  if (user_name_value == "") {
+    alert("Username must be filled out");
+    return false;
+  }
+  if (dob_value == "") {
+    alert("DOB must be filled out");
+    return false;
+  }
+}
