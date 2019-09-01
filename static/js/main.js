@@ -1,3 +1,11 @@
+function validateLoginForm() {
+  var login_name_value = document.forms["loginForm"]["username"].value;
+  if (login_name_value == "") {
+    alert("You must fill in a user name");
+    return false;
+  }
+}
+
 function validateLocationForm() {
   var location_name_value = document.forms["locationForm"]["location_name"].value;
   if (location_name_value == "") {
