@@ -31,7 +31,13 @@
 <ul class="collapsible" data-collapsible="accordion">
     {% for place_name in place_names %}
         <li>
-            <div class="collapsible-header active">
+            {% if place_name.eng_name == active_place_name %}
+                <div id="active" class="collapsible-header active">
+            {% elif active_place_name == "Initial" %}
+                <div class="collapsible-header active">
+            {% else %}
+                <div class="collapsible-header">
+            {% endif %}
                <div class="task_header col s2">
                     
                     {% if session['admin'] %}

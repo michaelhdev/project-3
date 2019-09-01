@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_place_names")
 def get_place_names():
-    return render_template("placeNames.html", place_names=mongo.db.place_names.find())
+    return render_template("placeNames.html", place_names=mongo.db.place_names.find(), active_place_name="Initial")
 
 @app.route("/add_place_name")
 def add_place_name():
@@ -26,7 +26,9 @@ def add_place_name():
 def insert_place_name():
     place_names = mongo.db.place_names
     place_names.insert_one(request.form.to_dict())
-    return redirect(url_for("get_place_names"))
+    the_active_place_name =request.form.get("eng_name")
+    the_place_names =  mongo.db.place_names.find()
+    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
 
 @app.route("/edit_place_name/<place_name_id>")
 def edit_place_name(place_name_id):
@@ -46,7 +48,10 @@ def update_place_name(place_name_id):
         "history": request.form.get("history"),
         "location":request.form.get("location")
     })
-    return redirect(url_for("get_place_names"))
+    place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+    the_active_place_name = place_name["eng_name"]
+    the_place_names =  mongo.db.place_names.find()
+    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
 
 @app.route("/delete_place_name/<place_name_id>")
 def delete_place_name(place_name_id):
@@ -56,7 +61,7 @@ def delete_place_name(place_name_id):
 @app.route("/sort_place_names", methods=["POST"])
 def sort_place_names():
     
-    return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort(request.form.get("sort_by"),1))
+    return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort(request.form.get("sort_by"),1), active_place_name="Initial")
     
 ####################################################################
     
@@ -174,8 +179,9 @@ def add_like(place_name_id):
     current_likes = place_name["likes"]
     updated_likes = current_likes + 1
     mongo.db.place_names.update( {"_id": ObjectId(place_name_id)}, { "$set": {"likes": updated_likes}})
-    
-    return redirect(url_for('get_place_names'))
+    the_active_place_name = place_name["eng_name"]
+    the_place_names =  mongo.db.place_names.find()
+    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
     
 @app.route("/add_dislike/<place_name_id>")
 def add_dislike(place_name_id):
@@ -183,8 +189,9 @@ def add_dislike(place_name_id):
     current_likes = place_name["likes"]
     updated_likes = current_likes - 1
     mongo.db.place_names.update( {"_id": ObjectId(place_name_id)}, { "$set": {"likes": updated_likes}})
-    
-    return redirect(url_for('get_place_names'))
+    the_active_place_name = place_name["eng_name"]
+    the_place_names =  mongo.db.place_names.find()
+    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
     
 ###############################################################################
 
