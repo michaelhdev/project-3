@@ -32,6 +32,7 @@ def insert_place_name():
         "irl_meaning": request.form.get("irl_meaning"),
         "history": request.form.get("history"),
         "location":request.form.get("location"),
+        "created_by":session['username'],
         "likes":0
     })
     the_active_place_name =request.form.get("eng_name")
@@ -170,7 +171,6 @@ def login():
         
         return redirect(url_for("get_place_names"))
     else:
-        # user not found! -  Not registered/typo
         flash("Username '{}' is invalid.".format(request.form["username"]))
         return redirect(url_for("login_page"))
         
