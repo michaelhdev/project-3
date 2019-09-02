@@ -14,3 +14,14 @@
 {
     color: red;
 }
+
+.login_card{
+    max-width: 300px;
+    text-align: center;
+    margin: auto;
+}
+
+.container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

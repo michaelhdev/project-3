@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
 
 {% block content %}
+<div class="card login_card">
+        <div class="card-content">
 <h3>Login</h3>
 <form name="loginForm" action="{{ url_for('login') }}" onsubmit="return validateLoginForm()" method="POST">
                 <div class="row">
@@ -10,7 +12,7 @@
                     </div>
                     
                     <div class="center-align col s12">
-                        <button id="submit" class="btn waves-effect waves-light btn_large deep-orange" type="submit">Log in
+                        <button id="submit" class="btn waves-effect waves-light btn_large green" type="submit">Log in
                                         <i class="material-icons right">send</i>
                         </button>
                     </div>
@@ -28,4 +30,6 @@
                 
                 </div>
             </form>
+            </div>
+            </div>
 {% endblock %}
