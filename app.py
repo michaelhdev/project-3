@@ -137,10 +137,11 @@ def insert_user():
     validUser = validate_user()
     if isinstance(validUser,str):
         flash(validUser)
+        return redirect(url_for("add_user"))
     else:
         user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
         mongo.db.users.insert_one(user_doc)
-    return redirect(url_for("get_users"))
+        return redirect(url_for("get_users"))
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
