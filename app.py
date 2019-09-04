@@ -12,6 +12,18 @@ app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://root:r00tUser@my
 mongo = PyMongo(app)
 
 
+#############################################################################################
+def validate_user():
+    username = request.form.get("user_name")
+    if  username != session['username']:   
+        if mongo.db.users.find_one({"username": username}) is None:
+            return 
+        else:
+            error = "User Name '{}' already exists!".format(username)
+        return error
+    else:
+        return 
+#############################################################################################
 @app.route("/")
 @app.route("/get_place_names")
 def get_place_names():
@@ -122,8 +134,12 @@ def add_user():
     
 @app.route("/insert_user", methods=["POST"])
 def insert_user():
-    user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-    mongo.db.users.insert_one(user_doc)
+    validUser = validate_user()
+    if isinstance(validUser,str):
+        flash(validUser)
+    else:
+        user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+        mongo.db.users.insert_one(user_doc)
     return redirect(url_for("get_users"))
                            
 @app.route("/edit_user/<user_id>")
