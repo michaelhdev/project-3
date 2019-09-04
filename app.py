@@ -150,9 +150,14 @@ def edit_user(user_id):
 
 @app.route("/update_user/<user_id>", methods=["POST"])
 def update_user(user_id):
-    user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-    mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
-    return redirect(url_for("get_users"))
+    
+    if valid_user():
+        user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+        mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
+        return redirect(url_for("get_users"))
+    else:
+        flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
+        return redirect(url_for("add_user"))
     
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
