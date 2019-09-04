@@ -16,7 +16,7 @@ mongo = PyMongo(app)
 def valid_user():
     username = request.form.get("user_name")
     if  username != session['username']:   
-        if mongo.db.users.find_one({"username": username}) is None:
+        if mongo.db.users.find_one({"userName": username}) is None:
             return True
         else:
             return False
@@ -134,7 +134,7 @@ def add_user():
 @app.route("/insert_user", methods=["POST"])
 def insert_user():
     
-    if mongo.db.users.find_one({"userName": request.form.get("user_name")}) is None:
+    if valid_user():
         user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
         mongo.db.users.insert_one(user_doc)
         return redirect(url_for("get_users"))
