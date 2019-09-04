@@ -13,16 +13,15 @@ mongo = PyMongo(app)
 
 
 #############################################################################################
-def validate_user():
+def valid_user():
     username = request.form.get("user_name")
     if  username != session['username']:   
         if mongo.db.users.find_one({"username": username}) is None:
-            return 
+            return True
         else:
-            error = "User Name '{}' already exists!".format(username)
-        return error
+            return False
     else:
-        return 
+        return True
 #############################################################################################
 @app.route("/")
 @app.route("/get_place_names")
@@ -134,14 +133,14 @@ def add_user():
     
 @app.route("/insert_user", methods=["POST"])
 def insert_user():
-    validUser = validate_user()
-    if isinstance(validUser,str):
-        flash(validUser)
-        return redirect(url_for("add_user"))
-    else:
+    
+    if mongo.db.users.find_one({"userName": request.form.get("user_name")}) is None:
         user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
         mongo.db.users.insert_one(user_doc)
         return redirect(url_for("get_users"))
+    else:
+        flash("User Name '{}' already exists!".format(request.form.get("user_name")))
+        return redirect(url_for("add_user"))
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
@@ -162,7 +161,7 @@ def delete_user(user_id):
     mongo.db.place_names.remove({"created_by": user["userName"]})
     
     mongo.db.users.remove({"_id": ObjectId(user_id)})
-    return redirect(url_for("get_locations"))
+    return redirect(url_for("get_users"))
     
 
 
