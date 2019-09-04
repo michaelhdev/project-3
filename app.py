@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId 
@@ -15,6 +16,11 @@ mongo = PyMongo(app)
 #############################################################################################
 def valid_user():
     username = request.form.get("user_name")
+    print(username)
+    print(session['username'])
+    print('Hello world!', flush=True)
+    print('This is error output', file=sys.stderr)
+    print('This is standard output', file=sys.stdout)
     if  username != session['username']:   
         if mongo.db.users.find_one({"userName": username}) is None:
             return True
