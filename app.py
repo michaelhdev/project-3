@@ -21,6 +21,7 @@ def valid_user():
     print('Hello world!', flush=True)
     print('This is error output', file=sys.stderr)
     print('This is standard output', file=sys.stdout)
+    sys.stdout.flush()
     if  username != session['username']:   
         if mongo.db.users.find_one({"userName": username}) is None:
             return True
@@ -28,6 +29,24 @@ def valid_user():
             return False
     else:
         return True
+
+def valid_place_name():
+    username = request.form.get("user_name")
+    print(username)
+    print(session['username'])
+    print('Hello world!', flush=True)
+    print('This is error output', file=sys.stderr)
+    print('This is standard output', file=sys.stdout)
+    sys.stdout.flush()
+    if  username != session['username']:   
+        if mongo.db.users.find_one({"userName": username}) is None:
+            return True
+        else:
+            return False
+    else:
+        return True
+        
+
 #############################################################################################
 @app.route("/")
 @app.route("/get_place_names")
@@ -157,13 +176,22 @@ def edit_user(user_id):
 @app.route("/update_user/<user_id>", methods=["POST"])
 def update_user(user_id):
     
-    if valid_user():
+    if request.form.get("original_user_name") == request.form.get("user_name"):
+       
         user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
         mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
         return redirect(url_for("get_users"))
-    else:
-        flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
-        return redirect(url_for("add_user"))
+        
+    else:     
+       
+        if valid_user():
+            user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+            mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
+            return redirect(url_for("get_users"))
+        else:
+            flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
+            return redirect(url_for("add_user"))
+
     
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):

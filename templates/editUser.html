@@ -36,6 +36,7 @@
                   <span class="lever"></span>
                   Admin
                 </label>
+                <input type="hidden" id="original_user_name" name="original_user_name" value="{{user.userName}}">
             </div>
         </div>
         <div class="row">
@@ -47,6 +48,13 @@
             </a>
         </div>
     </form>
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            {% endif %} 
+     {% endwith %}
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
