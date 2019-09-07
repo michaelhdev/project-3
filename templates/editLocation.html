@@ -8,6 +8,7 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">poll</i>
                 <input id="location_name" name="location_name" type="text" class="validate" value="{{location.location_name}}">
+                <input type="hidden" id="original_location" name="original_location" value="{{location.location_name}}">
                 <label for="location_name">location Name</label>
             </div>
         </div>
@@ -20,5 +21,12 @@
             </a>
         </div>
     </form>
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            {% endif %} 
+     {% endwith %}
 </div>
 {% endblock %}

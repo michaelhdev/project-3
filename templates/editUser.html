@@ -15,6 +15,7 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">poll</i>
                 <input id="user_name" name="user_name" type="text" class="validate" value="{{user.userName}}">
+                <input type="hidden" id="original_user_name" name="original_user_name" value="{{user.userName}}">
                 <label for="user_name">User Name</label>
             </div>
         </div>
@@ -36,7 +37,6 @@
                   <span class="lever"></span>
                   Admin
                 </label>
-                <input type="hidden" id="original_user_name" name="original_user_name" value="{{user.userName}}">
             </div>
         </div>
         <div class="row">
