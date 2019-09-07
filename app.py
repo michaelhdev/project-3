@@ -13,7 +13,10 @@ app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://root:r00tUser@my
 mongo = PyMongo(app)
 
 
-#############################################################################################
+#######################################Helper Functions######################################################
+""" These functions are used to ensure that there is no duplicate data in the database before adding or editing
+    users, locations or place names"""
+    
 def valid_user():
     username = request.form.get("user_name")
     if mongo.db.users.find_one({"userName": username}) is None:
@@ -36,10 +39,14 @@ def valid_place_name():
     else:
         return False
     
-#############################################################################################
+##########################################View Functions for place names###################################################
+""" These functions provide the functionality to - view place names, add a place name, edit a place name and delete a place name"""
+
+
 @app.route("/")
 @app.route("/get_place_names")
 def get_place_names():
+    #active_place_name is the place name that is been added or edited -> allows the page to scroll to the correct point
     return render_template("placeNames.html", place_names=mongo.db.place_names.find(), active_place_name="Initial")
 
 @app.route("/add_place_name")
@@ -66,6 +73,7 @@ def insert_place_name():
         the_place_names =  mongo.db.place_names.find()
         return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
     else:
+        #If its not a valid place name add error and return to page
         flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
         return redirect(url_for("add_place_name"))
     
@@ -81,7 +89,8 @@ def edit_place_name(place_name_id):
 @app.route("/update_place_name/<place_name_id>", methods=["POST"])
 def update_place_name(place_name_id):
     
-    
+    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+    #If not update the record else display an error
     if request.form.get("original_eng_name") == request.form.get("eng_name"):
         place_names = mongo.db.place_names
         place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
@@ -124,10 +133,11 @@ def delete_place_name(place_name_id):
     
 @app.route("/sort_place_names", methods=["POST"])
 def sort_place_names():
-    
+    #Sorts the results from the database based on the users selection
     return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort(request.form.get("sort_by"),1), active_place_name="Initial")
     
-####################################################################
+##########################################View functions for location##########################
+""" These functions provide the functionality to - view locations, add a location, edit a location and delete a location"""
     
 @app.route("/get_locations")
 def get_locations():
@@ -144,6 +154,8 @@ def edit_location(location_id):
 @app.route("/update_location/<location_id>", methods=["POST"])
 def update_location(location_id):
     
+    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+    #If not update the record else display an error
     if request.form.get("original_location") == request.form.get("location_name"):
         mongo.db.locations.update(
         {"_id": ObjectId(location_id)},
@@ -164,6 +176,7 @@ def update_location(location_id):
 def delete_location(location_id):
     location=mongo.db.locations.find_one({"_id": ObjectId(location_id)})
     mongo.db.locations.remove({"_id": ObjectId(location_id)})
+    #delete and place names that have been assigned the location
     mongo.db.place_names.remove({"location_name": location["location_name"]})
     return redirect(url_for("get_locations"))
     
@@ -180,8 +193,8 @@ def insert_location():
 @app.route("/add_location")
 def add_location():
     return render_template("addLocation.html")
-#############################################################
-
+###########################################View functions for user##################
+""" These functions provide the functionality to - view users, add a user, edit a user and delete a user"""
     
 @app.route("/get_users")
 def get_users():
@@ -212,6 +225,8 @@ def edit_user(user_id):
 @app.route("/update_user/<user_id>", methods=["POST"])
 def update_user(user_id):
     
+    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+    #If not update the record else display an error
     if request.form.get("original_user_name") == request.form.get("user_name"):
        
         user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
@@ -233,6 +248,7 @@ def update_user(user_id):
 def delete_user(user_id):
     
     user=mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    #Remove and place names created by that user
     mongo.db.place_names.remove({"created_by": user["userName"]})
     
     mongo.db.users.remove({"_id": ObjectId(user_id)})
@@ -240,7 +256,7 @@ def delete_user(user_id):
     
 
 
-#############################################################
+#################################################View functions to login and logout############
 
 @app.route("/login_page")
 def login_page():
@@ -251,7 +267,8 @@ def login():
    
     users = mongo.db.users
     user = users.find_one({"userName": request.form["username"].lower()})
-    
+    #If the username exists in the database set up the session data otherwise return to the page
+    #and display an error
     if user:
         session['username'] = request.form['username'].lower()
         name = user["name"].split(" ")[0]
@@ -270,8 +287,8 @@ def logout():
     session.clear()
     return redirect(url_for('get_place_names'))
 
-##############################################################################    
-
+###############################################View functions to add likes###############################    
+"""Toggles like or dislike and returns to the active place name in the page"""
 @app.route("/add_like/<place_name_id>")
 def add_like(place_name_id):
     place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
