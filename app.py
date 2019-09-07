@@ -84,14 +84,14 @@ def update_place_name(place_name_id):
     
     if request.form.get("original_eng_name") == request.form.get("eng_name"):
         place_names = mongo.db.place_names
-        place_names.update( {"_id": ObjectId(place_name_id)},
-        {
-            "eng_name":request.form.get("eng_name"),
-            "irl_name":request.form.get("irl_name"),
-            "irl_meaning": request.form.get("irl_meaning"),
-            "history": request.form.get("history"),
-            "location":request.form.get("location")
-        })
+        place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
+            {
+                "eng_name":request.form.get("eng_name"),
+                "irl_name":request.form.get("irl_name"),
+                "irl_meaning": request.form.get("irl_meaning"),
+                "history": request.form.get("history"),
+                "location":request.form.get("location")
+            }})
         place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
         the_active_place_name = place_name["eng_name"]
         the_place_names =  mongo.db.place_names.find()
@@ -99,14 +99,14 @@ def update_place_name(place_name_id):
     else:
         if valid_place_name():
             place_names = mongo.db.place_names
-            place_names.update( {"_id": ObjectId(place_name_id)},
+            place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
             {
                 "eng_name":request.form.get("eng_name"),
                 "irl_name":request.form.get("irl_name"),
                 "irl_meaning": request.form.get("irl_meaning"),
                 "history": request.form.get("history"),
                 "location":request.form.get("location")
-            })
+            }})
             place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
             the_active_place_name = place_name["eng_name"]
             the_place_names =  mongo.db.place_names.find()
