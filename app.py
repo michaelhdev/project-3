@@ -28,6 +28,13 @@ def valid_location():
         return True
     else:
         return False
+        
+def valid_place_name():
+    engName = request.form.get("eng_name")
+    if mongo.db.place_names.find_one({"eng_name": engName}) is None:
+        return True
+    else:
+        return False
     
 #############################################################################################
 @app.route("/")
@@ -42,20 +49,27 @@ def add_place_name():
                            
 @app.route("/insert_place_name", methods=["POST"])
 def insert_place_name():
-    place_names = mongo.db.place_names
-    place_names.insert_one(
+    
+    if valid_place_name():
+        place_names = mongo.db.place_names
+        place_names.insert_one(
         {
-        "eng_name":request.form.get("eng_name"),
-        "irl_name":request.form.get("irl_name"),
-        "irl_meaning": request.form.get("irl_meaning"),
-        "history": request.form.get("history"),
-        "location":request.form.get("location"),
-        "created_by":session['username'],
-        "likes":0
-    })
-    the_active_place_name =request.form.get("eng_name")
-    the_place_names =  mongo.db.place_names.find()
-    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
+            "eng_name":request.form.get("eng_name"),
+            "irl_name":request.form.get("irl_name"),
+            "irl_meaning": request.form.get("irl_meaning"),
+            "history": request.form.get("history"),
+            "location":request.form.get("location"),
+            "created_by":session['username'],
+            "likes":0
+        })
+        the_active_place_name =request.form.get("eng_name")
+        the_place_names =  mongo.db.place_names.find()
+        return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+    else:
+        flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
+        return redirect(url_for("add_place_name"))
+    
+    
 
 @app.route("/edit_place_name/<place_name_id>")
 def edit_place_name(place_name_id):
