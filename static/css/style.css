@@ -30,7 +30,7 @@
     width: 100px;
 }
 
-.nav{
+.nav-wrapper{
     background-color: #3fa13e;
 }
 
@@ -38,4 +38,7 @@
     background-color: #3fa13e;
 }
 
+.sort-button{
+    text-align: center;
+}
 
