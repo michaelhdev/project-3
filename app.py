@@ -164,8 +164,7 @@ def update_location(location_id):
 def delete_location(location_id):
     location=mongo.db.locations.find_one({"_id": ObjectId(location_id)})
     mongo.db.locations.remove({"_id": ObjectId(location_id)})
-    if location:
-        mongo.db.place_names.remove({"location": location["location"]})
+    mongo.db.place_names.remove({"location_name": location["location"]})
     return redirect(url_for("get_locations"))
     
 @app.route("/insert_location", methods=["POST"])
