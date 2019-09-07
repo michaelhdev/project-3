@@ -52,5 +52,12 @@
         </div>
         <input type="hidden" id="created_by" name="created_by" value={{session['username']}}>
     </form>
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            {% endif %} 
+     {% endwith %}
 </div>
 {% endblock %}
