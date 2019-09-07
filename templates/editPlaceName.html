@@ -49,13 +49,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="save-button col s12 m3">
-                <button class="btn waves-effect waves-light save-button" type="submit" name="action">Save Changes
+            <div class="col s12 m4 save-button-container">
+                <button class="btn waves-effect waves-light save-button" type="submit" name="action">Save
                     <i class="material-icons right">playlist_add</i>
                  </button>
              </div>
-             <div class="cancel-button col s12 m9">
-                <a href="{{ url_for('get_place_names') }}" class="waves-effect waves-light btn grey">
+             <div class="col s12 m8">
+                <a href="{{ url_for('get_place_names') }}" class="waves-effect waves-light btn grey cancel-button">
                     <i class="material-icons right">cancel</i>Cancel
                 </a>
             </div>

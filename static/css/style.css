@@ -6,7 +6,7 @@
     padding: 0 0.5em;
 }
 
-.task_header {
+.place_name_header {
     margin-top: 5px;
 }
 
@@ -43,10 +43,18 @@
 }
 
 .brand-logo{
- padding-left: 10px;   
+ margin-left: 10px;   
 }
 
 .cancel-button{
-    padding-top: 20px; 
+    width: 195px;
+}
+
+.save-button{
+    width: 195px;
+}
+
+.save-button-container{
+    margin-bottom: 20px;
 }
 
