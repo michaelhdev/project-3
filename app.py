@@ -80,19 +80,42 @@ def edit_place_name(place_name_id):
 
 @app.route("/update_place_name/<place_name_id>", methods=["POST"])
 def update_place_name(place_name_id):
-    place_names = mongo.db.place_names
-    place_names.update( {"_id": ObjectId(place_name_id)},
-    {
-        "eng_name":request.form.get("eng_name"),
-        "irl_name":request.form.get("irl_name"),
-        "irl_meaning": request.form.get("irl_meaning"),
-        "history": request.form.get("history"),
-        "location":request.form.get("location")
-    })
-    place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
-    the_active_place_name = place_name["eng_name"]
-    the_place_names =  mongo.db.place_names.find()
-    return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name) 
+    
+    
+    if request.form.get("original_eng_name") == request.form.get("eng_name"):
+        place_names = mongo.db.place_names
+        place_names.update( {"_id": ObjectId(place_name_id)},
+        {
+            "eng_name":request.form.get("eng_name"),
+            "irl_name":request.form.get("irl_name"),
+            "irl_meaning": request.form.get("irl_meaning"),
+            "history": request.form.get("history"),
+            "location":request.form.get("location")
+        })
+        place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+        the_active_place_name = place_name["eng_name"]
+        the_place_names =  mongo.db.place_names.find()
+        return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+    else:
+        if valid_place_name():
+            place_names = mongo.db.place_names
+            place_names.update( {"_id": ObjectId(place_name_id)},
+            {
+                "eng_name":request.form.get("eng_name"),
+                "irl_name":request.form.get("irl_name"),
+                "irl_meaning": request.form.get("irl_meaning"),
+                "history": request.form.get("history"),
+                "location":request.form.get("location")
+            })
+            place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+            the_active_place_name = place_name["eng_name"]
+            the_place_names =  mongo.db.place_names.find()
+            return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+        else:
+            flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
+            return redirect(url_for("add_place_name"))
+    
+     
 
 @app.route("/delete_place_name/<place_name_id>")
 def delete_place_name(place_name_id):
@@ -128,8 +151,9 @@ def update_location(location_id):
         return redirect(url_for("get_locations"))
     else:
         if valid_location():
-            location_doc = {"location_name": request.form.get("location_name")}
-            mongo.db.locations.insert_one(location_doc)
+            mongo.db.locations.update(
+            {"_id": ObjectId(location_id)},
+            {"location_name": request.form.get("location_name")})
             return redirect(url_for("get_locations"))
         else:
             flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
