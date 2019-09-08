@@ -6,7 +6,7 @@ Project aim
 
 Every English place name in Ireland has it's original Irish name. The English name was usually derived by how the Irish name sounded phonetically in English. Knowing the original Irish name provides valuable information about the area as it usually describes some feature or historic interest. This can be very interesting to tourists or visitors to the area. The aim of this website is to provide users with a way of accessing this valuable information and adding information about place names that they are familiar with. The envisaged users of this site will be:
 
-- The guests who can wants to view the English place name, the original Irish place name and the meaning behind the place name.
+- The guests who wants to view the English place name, the original Irish place name and the meaning behind the place name.
 
 - The users who knows the meaning behind a place name and wants to add the place name to the site.
 
