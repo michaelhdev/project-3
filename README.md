@@ -137,6 +137,14 @@ Interface
 
 <p align="center"><img src="static/images/userInterface2.jpg"/></p>
 
+## Admin View
+
+<p align="center"><img src="static/images/adminInterface1.jpg"/></p>
+
+<p align="center"><img src="static/images/adminInterface2.jpg"/></p>
+
+<p align="center"><img src="static/images/adminInterface3.jpg"/></p>
+
 Future Features
 ===============
 
@@ -192,5 +200,24 @@ The list of technologies used for this project in no specific order.
 13. [Git/Github](https://github.com/michaelhdev/project-3)
 
 14. AWS Cloud9
+
+## Testing
+
+Use Cases: A 
+
+During testing
+- Adjustments 
+
+## Deployment
+
+This project is deployed using [Heroku](https://id.heroku.com/login) 
+
+
+- [Website](https://place-name-app.herokuapp.com/#active)
+
+
+## Credits
+
+### Media
 
 
