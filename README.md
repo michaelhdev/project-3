@@ -81,3 +81,108 @@ Wire Frame Diagrams
 <p align="center"><img src="static/images/userView.jpg"/></p>
 <p align="center"><img src="static/images/adminView1.jpg"/></p>
 <p align="center"><img src="static/images/adminView2.jpg"/></p>
+
+## Features
+
+Below is the list of features added to provide the website functionality. Future features that are planned to be added are listed in the future feature section “[Future Features](#future-features)”
+
+-   Login – Users that are registered in the system can log in. Users are given either user privileges or admin privileges depending on login details.
+
+-   View Place Names – show all place names entered by all users - different menus and options are shown based on the users privileges 
+    ([placeNames.html](https://github.com/michaelhdev/project-3/blob/master/templates/placeNames.html).
+
+-   Add Place Name – allows a user to add a place name [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
+    ([addPlaceName.html](https://github.com/michaelhdev/project-3/blob/master/templates/addPlaceName.html))
+
+-   Edit Place Name – allows the user who created the place name to edit the place name [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
+    ([editPlaceName.html](https://github.com/michaelhdev/project-3/blob/master/templates/editPlaceName.html))
+
+-   Delete Place Name - allows a user to delete a place name they have added [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
+
+-   Manage Users – view and manage users information [Admin privileges](#admin-privileges)
+    ([users.html](https://github.com/michaelhdev/project-3/blob/master/templates/users.html)
+
+-   Add User – add user information if the user does not already exist [Admin privileges](#admin-privileges)
+    ([addUser.html](https://github.com/michaelhdev/project-3/blob/master/templates/addUser.html)
+
+-   Edit User – edit user information [Admin privileges](#admin-privileges)
+    ([editUser.html](https://github.com/michaelhdev/project-3/blob/master/templates/editUser.html)
+
+-   Delete User - allows an admin to delete a user and information they have entered [Admin privileges](#admin-privileges)
+
+-   Manage Locations – view and manage location information [Admin privileges](#admin-privileges)
+    ([locations.html](https://github.com/michaelhdev/project-3/blob/master/templates/locations.html)
+
+-   Add Location – add location information if the location does not already exist[Admin privileges](#admin-privileges)
+    ([addLocation.html](https://github.com/michaelhdev/project-3/blob/master/templates/addLocation.html)
+
+-   Edit Location – edit location information [Admin privileges](#admin-privileges)
+    ([editLocation.html](https://github.com/michaelhdev/project-3/blob/master/templates/editLocation.html)
+
+-   Delete location- allows an admin to delete a location and information associated with that location [Admin privileges](#admin-privileges)
+
+-   Sort place names based on selected option
+
+-   Allow users to like dislike place names and display the number of likes a place name has
+
+Interface
+===============
+
+
+Future Features
+===============
+
+If the scope of the project was to be extended the following features should be added:
+
+1.  Authentication – proper password authentication
+
+2.  Live Search – live search to check if a place name the user is searching for is in the system and display an add button if the place name does not exist.
+
+3.  Google location – incorporate the google api to display the location of the place name
+
+4. Advanced admin capabilities – to show number of place name views, most active user etc.
+
+5. Place name of the day – display a place name of the day on the homepage
+
+Database Schemas
+================
+
+This project consists of three tables. The schema for each is presented
+below:
+
+<p align="center"><img src="static/images/databaseSchemas.jpg"/></p>
+
+Technologies Used
+=================
+
+The list of technologies used for this project in no specific order.
+
+1. HTML5
+
+2. CSS
+
+3.  JavaScript and [jQuery](https://jquery.com/) v3.2.1
+
+4. [Materialize front-end framework v0.100.2](http://archives.materializecss.com/0.100.2/)
+
+5.  [Python](https://www.python.org/downloads/) v3.6.8
+
+6.  [FLASK](http://flask.pocoo.org/) v1.1.1
+
+7.  [Jinja2](http://jinja.pocoo.org/docs/2.10/)
+
+8.  Pip3
+
+9.  [MongoDB](https://www.mongodb.com/)
+
+10. [Heroku](https://www.heroku.com/)
+
+11. [Google fonts](https://fonts.google.com/)
+
+12. Chrome and Firefox developer tools
+
+13. [Git/Github](https://github.com/michaelhdev/project-3)
+
+14. AWS Cloud9
+
+
