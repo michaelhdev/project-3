@@ -127,7 +127,15 @@ Below is the list of features added to provide the website functionality. Future
 
 Interface
 ===============
+## Guest View
 
+<p align="center"><img src="static/images/guestInterface.jpg"/></p>
+
+## User View
+
+<p align="center"><img src="static/images/userInterface.jpg"/></p>
+
+<p align="center"><img src="static/images/userInterface2.jpg"/></p>
 
 Future Features
 ===============
