@@ -237,8 +237,8 @@ def update_user(user_id):
        
         if valid_user():
             user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-            #Change to username on the place names table
-            mongo.db.place_names.update( {"created_by": request.form.get("original_user_name")}, { "$set": {"created_by": request.form.get("user_name")}})
+            #Change to username on the place names table 
+            mongo.db.place_names.update( {"created_by": request.form.get("original_user_name")}, { "$set": {"created_by": request.form.get("user_name")}}, multi=True)
             mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
             return redirect(url_for("get_users"))
         else:
