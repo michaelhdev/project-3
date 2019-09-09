@@ -91,35 +91,34 @@ Below is the list of features added to provide the website functionality. Future
 -   View Place Names – show all place names entered by all users - different menus and options are shown based on the users privileges 
     ([placeNames.html](https://github.com/michaelhdev/project-3/blob/master/templates/placeNames.html).
 
--   Add Place Name – allows a user to add a place name [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
-    ([addPlaceName.html](https://github.com/michaelhdev/project-3/blob/master/templates/addPlaceName.html))
+-   Add Place Name – allows a user to add a place name (Privileges - user or admin)
+    ([addPlaceName.html])(https://github.com/michaelhdev/project-3/blob/master/templates/addPlaceName.html))
 
--   Edit Place Name – allows the user who created the place name to edit the place name [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
-    ([editPlaceName.html](https://github.com/michaelhdev/project-3/blob/master/templates/editPlaceName.html))
+-   Edit Place Name – allows the user who created the place name to edit the place name (Privileges - user or admin)
+    ([editPlaceName.html])(https://github.com/michaelhdev/project-3/blob/master/templates/editPlaceName.html))
 
--   Delete Place Name - allows a user to delete a place name they have added [User privileges](#user-privileges) [Admin privileges](#admin-privileges)
+-   Delete Place Name - allows a user to delete a place name they have added (Privileges - user or admin)
 
--   Manage Users – view and manage users information [Admin privileges](#admin-privileges)
-    ([users.html](https://github.com/michaelhdev/project-3/blob/master/templates/users.html)
+-   Manage Users – view and manage users information (Privileges - admin) (https://github.com/michaelhdev/project-3/blob/master/templates/users.html)
 
--   Add User – add user information if the user does not already exist [Admin privileges](#admin-privileges)
-    ([addUser.html](https://github.com/michaelhdev/project-3/blob/master/templates/addUser.html)
+-   Add User – add user information if the user does not already exist (Privileges - admin)
+    ([addUser.html])(https://github.com/michaelhdev/project-3/blob/master/templates/addUser.html)
 
--   Edit User – edit user information [Admin privileges](#admin-privileges)
-    ([editUser.html](https://github.com/michaelhdev/project-3/blob/master/templates/editUser.html)
+-   Edit User – edit user information (Privileges - admin)
+    ([editUser.html])(https://github.com/michaelhdev/project-3/blob/master/templates/editUser.html)
 
--   Delete User - allows an admin to delete a user and information they have entered [Admin privileges](#admin-privileges)
+-   Delete User - allows an admin to delete a user and information they have entered (Privileges - admin)
 
--   Manage Locations – view and manage location information [Admin privileges](#admin-privileges)
-    ([locations.html](https://github.com/michaelhdev/project-3/blob/master/templates/locations.html)
+-   Manage Locations – view and manage location information (Privileges - admin)
+    ([locations.html])(https://github.com/michaelhdev/project-3/blob/master/templates/locations.html)
 
--   Add Location – add location information if the location does not already exist[Admin privileges](#admin-privileges)
-    ([addLocation.html](https://github.com/michaelhdev/project-3/blob/master/templates/addLocation.html)
+-   Add Location – add location information if the location does not already exist (Privileges - admin)
+    ([addLocation.html])(https://github.com/michaelhdev/project-3/blob/master/templates/addLocation.html)
 
--   Edit Location – edit location information [Admin privileges](#admin-privileges)
-    ([editLocation.html](https://github.com/michaelhdev/project-3/blob/master/templates/editLocation.html)
+-   Edit Location – edit location information (Privileges - admin)
+    ([editLocation.html])(https://github.com/michaelhdev/project-3/blob/master/templates/editLocation.html)
 
--   Delete location- allows an admin to delete a location and information associated with that location [Admin privileges](#admin-privileges)
+-   Delete location- allows an admin to delete a location and information associated with that location (Privileges - admin)
 
 -   Sort place names based on selected option
 
@@ -202,11 +201,74 @@ The list of technologies used for this project in no specific order.
 14. AWS Cloud9
 
 ## Testing
+The use cases were used during testing to enuser the expected result was returned. In cases where the expected result was not return the code was investigated and when the 
+problem was found it was rectified. Debugging was also turned on during development and console logs were used to ensure the expeced values were in variables whenever a problem was encounterd.
 
-Use Cases: A 
+## Use Cases and expected results
 
-During testing
-- Adjustments 
+### Guest tests
+### The guest wants to view the Irish name and meaning of a place name: 
+- The guest goes to the home page of the site. All the placenames within the system are listed. 
+- If the guest selects a place name it opens an accordian element to display more information about the place name. 
+- The place name, the Irish place name, the Irish meaning of the place name, the history of the place name, the location of the place name, the number of likes and the user who entered the place name are all visable to the user.
+
+### The guest wants to like or dislike an uploaded Irish Place Name:
+- The guest selects an irish place name and the accordian view opens up.
+- The guest clicks on the thumbs down icon => the likes count is decremented by one
+- The guest clicks on the thumbs up icon => the likes count is incremented by one
+
+### The guest wants to sort place names based on likes, location, alphabetic order and created by:
+- The guest selects likes from the selection box and presses sort -> The place names are returned ordered by likes.
+- The guest selects location from the selection box and presses sort -> The place names are returned ordered by location.
+- The guest selects name from the selection box and presses sort -> The place names are returned ordered by in alphabetical order based on placenames.
+- The guest selects created by from the selection box and presses sort -> The place names are returned ordered by who created them.
+
+### User tests
+### The user wants to login
+- The user selects the login button on the menu bar
+- The user is taken to a login page where they can enter login details. 
+- If the correct login details are entered they are taken to the user homepage. 
+- If the incorrect login details are entered they remain on the login page and an error message is displayed.
+
+### The user wants to add a place name 
+- The user clicks on the “Add Place Name” button which only displays on the homepage when the user is logged in. 
+- The user is taken to the add place name page where the can enter the place name details. 
+- When the user clicks the add button, if the form is not empty and the place name does not exist in the database, the place name is added and the user is returned to the list of place names where the place name they have beed editing is expanded. 
+- If the form is empty or the place name already exists the user is returned to the add place name page with an error message displayed.
+
+### The users wants to edit a place name they have added 
+- The user clicks on the edit button beside the place name, which only displays on the place names they have created. 
+- The edit place name page is displayed containing the values already in the system. 
+- The user edits the details and clicks “Save Changes”.
+- If the form is not empty and the place name has not been changed to a name that already exists the place name is updated and The user is returned to the home page where they can view all the place names and where the place name they have beed editing is expanded.
+- If the form fields are changed to empty of a name is changed to a name that already exists and error is displayed
+
+### The user wants to delete a place name that they have entered 
+- The user clicks on the delete button beside the place name. The delete button is only displayed beside place names that user has entered. 
+- The place name is deleted and the user is returned to the homepage where all the place names are displayed.
+
+### The user wants to like or dislike an uploaded Irish Place Name:
+- The user selects an irish place name and the accordian view opens up.
+- The user clicks on the thumbs down icon => the likes count is decremented by one
+- The user clicks on the thumbs up icon => the likes count is incremented by one
+
+### The user wants to sort place names based on likes, location, alphabetic order and created by:
+- The user selects likes from the selection box and presses sort -> The place names are returned ordered by likes.
+- The user selects location from the selection box and presses sort -> The place names are returned ordered by location.
+- The user selects name from the selection box and presses sort -> The place names are returned ordered by in alphabetical order based on placenames.
+- The user selects created by from the selection box and presses sort -> The place names are returned ordered by who created them.
+
+### The user wants to log out
+- The user click the “log out” button. 
+- The users is return to the homepage where they no longer have the options to add place names or edit and delete the place names they have added
+
+### Admin tests
+
+## During testing
+---------------
+- likes were not incrementing and decremending consistently
+- likes were ordering lowest to highest, the preferred result would be hightest to lowest.
+- empty form validation is not enabled for the edit forms
 
 ## Deployment
 
