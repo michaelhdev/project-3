@@ -263,12 +263,93 @@ problem was found it was rectified. Debugging was also turned on during developm
 - The users is return to the homepage where they no longer have the options to add place names or edit and delete the place names they have added
 
 ### Admin tests
+### The admin wants to login 
+- The admin clicks the login button on the home page. 
+- The admin is taken to a login page where they can login. 
+- If the correct login details are entered they are taken to the user homepage. 
+- If the incorrect details are entered they are displayed with an error message on the login page.
+
+### The admin wants to mange site users 
+- The admin clicks on the “Mange Users” button in the menu bar. This option is only displayed with admin privileges 
+- The admin is take to the manage users page where they can edit, add or delete users.
+
+### The admin wants to add a user 
+- On the manage users page the admin clicks the “Add User” button. 
+- The admin is taken to the add user page where they fill in the user details. 
+- The admin clicks the add user button. 
+- If the form is filled and the user does not already exist, the user is added to the system and the admin is returned to the list of user. 
+- If the user exists or no details have been entered an error is displayed on the page.
+
+### The admin wants to edit a user 
+- The admin clicks on the edit button beside the user. 
+- The edit user page is displayed. 
+- The admin edits the details and clicks “Save”. 
+- If the form is not empty and the user has not been changed to a name that already exists the user is updated.
+- The admin is returned to the manage users page where they can view all the users.
+
+### The admin wants to delete a user
+- The admin clicks on the delete button beside the user name. 
+- The user is deleted along with all the place names they have added on the system. 
+- The admin is returned to the manage users page where all the users on the system are displayed.
+
+## The admin wants to mange place names locations 
+- The admin clicks on the “Mange locations” button in the menu bar. 
+- The admin is taken to the manage locations page where they can edit, add or delete locations.
+
+## The admin wants to add a location 
+- On the manage location page the admin clicks the “Add location” button. 
+- The admin is taken to the add location page where they fill in the location details. 
+- The admin clicks the add location button. 
+- If the form is filled in and the location does not already exist in the system, the location is added and the admin is returned to the list of location. 
+- If the location exists or no details have been entered an error is displayed on the page.
+
+## The admin wants to edit a location
+- The admin clicks on the edit button beside the location. 
+- The edit location page is displayed. 
+- The admin edits the details and clicks “Save”. 
+- If the form is not empty and the location has not been changed to a name that already exists. The location is updated and The admin is returned to the manage locations page where they can view all the location on the system.
+- If the location exists or no details have been entered an error is displayed on the page.
+
+## The admin wants to delete a location 
+- The admin clicks on the delete button beside the location name. 
+- The location is deleted along with all the place names that were added under that location in the system. 
+- The admin is returned to the manage locations page where all the locations on the system are displayed.
+
+## The admin wants to add, edit, delete a place name 
+- The same testing proceture as for adding, deleting and editinn a place name for guest and user
+
+### The admin wants to like or dislike an uploaded Irish Place Name:
+- The admin selects an irish place name and the accordian view opens up.
+- The admin clicks on the thumbs down icon => the likes count is decremented by one
+- The admin clicks on the thumbs up icon => the likes count is incremented by one
+
+### The admin wants to sort place names based on likes, location, alphabetic order and created by:
+- The admin selects likes from the selection box and presses sort -> The place names are returned ordered by likes.
+- The admin selects location from the selection box and presses sort -> The place names are returned ordered by location.
+- The admin selects name from the selection box and presses sort -> The place names are returned ordered by in alphabetical order based on placenames.
+- The admin selects created by from the selection box and presses sort -> The place names are returned ordered by who created them.
+
+### The admin wants to log out
+- The admin click the “log out” button in the menu bar. 
+- The admin is return to the homepage where they no longer have the options to add edit delete place names, manage users and manage locations
+
 
 ## During testing
 ---------------
 - likes were not incrementing and decremending consistently
 - likes were ordering lowest to highest, the preferred result would be hightest to lowest.
 - empty form validation is not enabled for the edit forms
+- when editing a usern - if the user is changed to a username that already exits, an error message appears but the user is returned to the addUser.html instead of the editUser.html
+- only one of the users placenames was deleting when the user was deleted from the system
+- when editing a location - if the location is changed to a location that already exits, an error message appears but the user is returned to the addLocation.html instead of the editLOcation.html
+- when a location name is updated, the name is not updated in the place-names database.
+- If a location is deleted its correspoinding placenames are not getting deleted
+- For admin name does not appear to be ordering propperly
+
+
+
+
+
 
 ## Deployment
 
