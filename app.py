@@ -164,6 +164,7 @@ def update_location(location_id):
         mongo.db.locations.update(
         {"_id": ObjectId(location_id)},
         {"location_name": request.form.get("location_name")})
+        mongo.db.place_names.update( {"location": request.form.get("location_name")})
         return redirect(url_for("get_locations"))
     else:
         if valid_location():
