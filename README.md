@@ -336,18 +336,19 @@ problem was found it was rectified. Debugging was also turned on during developm
 
 ## During testing
 ---------------
-- likes were not incrementing and decremending consistently
-- likes were ordering lowest to highest, the preferred result would be hightest to lowest.
-- empty form validation is not enabled for the edit forms
-- when editing a usern - if the user is changed to a username that already exits, an error message appears but the user is returned to the addUser.html instead of the editUser.html
-- only one of the users placenames was deleting when the user was deleted from the system
-- when editing a location - if the location is changed to a location that already exits, an error message appears but the user is returned to the addLocation.html instead of the editLOcation.html
-- when a location name is updated, the name is not updated in the place-names database.
-- If a location is deleted its correspoinding placenames are not getting deleted
-- For admin name does not appear to be ordering propperly
+- likes were not incrementing and decremending consistently - Passed
+- likes were ordering lowest to highest, the preferred result would be hightest to lowest. -Passed
+- empty form validation is not enabled for the edit forms - Passed
+- when editing a usern - if the user is changed to a username that already exits, an error message appears but the user is returned to the addUser.html instead of the editUser.html Passed
+- only one of the users placenames was deleting when the user was deleted from the system - Passed
+- when editing a location - if the location is changed to a location that already exits, an error message appears but the user is returned to the addLocation.html instead of the editLOcation.html Passed
+- when a location name is updated, the name is not updated in the place-names database. Fail
+- If a location is deleted its correspoinding placenames are not getting deleted - Passed
+- For admin name does not appear to be ordering propperly - Passed
 
 
-
+## Responsiveness Testing
+The responsiveness was tested extensively on different devises using and Chromes developement tools.
 
 
 
@@ -355,12 +356,24 @@ problem was found it was rectified. Debugging was also turned on during developm
 
 This project is deployed using [Heroku](https://id.heroku.com/login) 
 
-
 - [Website](https://place-name-app.herokuapp.com/#active)
+
+Git was also used extensively throughout this project to back up files from Cloud 9
+
+The project was developed and tested in Cloud9. It was also pushed to Heroku at and early stage in the project and then updated incrementially. 
+
+The mongoDB name and URI were added as environment varialbles along with the usual IP and PORT variables.
+
+Deployment worked seemisly and there were never any issues deploying from Cloud 9
 
 
 ## Credits
 
-### Media
+### Content
+- Information placenames was taken from [Wikipedia Monkees Page](https://en.wikipedia.org/wiki/The_Monkees)
+
+### Acknowledgements
+
+- I received inspiration for the materialize navigation bar from projects presented during the code institute course. 
 
 
