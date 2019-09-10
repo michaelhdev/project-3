@@ -179,9 +179,11 @@ def update_location(location_id):
 @app.route("/delete_location/<location_id>")
 def delete_location(location_id):
     location=mongo.db.locations.find_one({"_id": ObjectId(location_id)})
+   
     mongo.db.locations.remove({"_id": ObjectId(location_id)})
+    
     #delete and place names that have been assigned the location
-    mongo.db.place_names.remove({"location_name": location["location_name"]})
+    mongo.db.place_names.remove({"location": location["location_name"]})
     return redirect(url_for("get_locations"))
     
 @app.route("/insert_location", methods=["POST"])
