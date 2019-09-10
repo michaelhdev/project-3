@@ -247,7 +247,7 @@ def update_user(user_id):
             return redirect(url_for("get_users"))
         else:
             flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
-            return redirect(url_for("add_user"))
+            return redirect(url_for("add_user", user_id))
 
     
 @app.route("/delete_user/<user_id>")
