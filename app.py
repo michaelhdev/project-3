@@ -134,8 +134,12 @@ def delete_place_name(place_name_id):
 @app.route("/sort_place_names", methods=["POST"])
 def sort_place_names():
     #Sorts the results from the database based on the users selection
-    return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort(request.form.get("sort_by"),1), active_place_name="Initial")
-    
+    #sorts decending if likes is selected ascending otherwise
+    sortBy = request.form.get("sort_by")
+    if sortBy == "likes":
+        return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort( sortBy ,-1), active_place_name="Initial")
+    else:
+        return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort( sortBy ,1), active_place_name="Initial")
 ##########################################View functions for location##########################
 """ These functions provide the functionality to - view locations, add a location, edit a location and delete a location"""
     
