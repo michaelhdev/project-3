@@ -122,7 +122,7 @@ def update_place_name(place_name_id):
             return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
         else:
             flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
-            return redirect(url_for("add_place_name"))
+            return redirect(url_for("edit_place_name", place_name_id=place_name_id))
     
      
 
