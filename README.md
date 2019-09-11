@@ -349,7 +349,7 @@ Errors encountered when running the test cases have been rectified
 - when editing a user - if the user is changed to a username that already exits, an error message appears but the user is returned to the addUser.html instead of the editUser.html Passed
 - only one of the users place names was deleting when the user was deleted from the system - Passed
 - when editing a location - if the location is changed to a location that already exits, an error message appears but the user is returned to the addLocation.html instead of the editLOcation.html Passed
-- when a location name is updated, the name is not updated in the place-names database. Fail
+- when a location name is updated, the name is not updated in the place-names database. Passed
 - If a location is deleted its corresponding place names are not getting deleted - Passed
 - For admin, place names do not appear to be ordering properly  - Passed
 

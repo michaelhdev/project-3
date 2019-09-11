@@ -277,11 +277,11 @@ def login_page():
 def login():
    
     users = mongo.db.users
-    user = users.find_one({"userName": request.form["username"].lower()})
+    user = users.find_one({"userName": request.form["username"]})
     #If the username exists in the database set up the session data otherwise return to the page
     #and display an error
     if user:
-        session['username'] = request.form['username'].lower()
+        session['username'] = request.form['username']
         name = user["name"].split(" ")[0]
         session['name'] = name
        
