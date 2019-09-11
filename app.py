@@ -326,5 +326,4 @@ def add_dislike(place_name_id):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+            port=int(os.environ.get('PORT')))
