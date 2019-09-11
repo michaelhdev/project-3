@@ -1,3 +1,8 @@
+/***
+ *Validation funtions for forms within the application 
+ * 
+ */
+
 function validateLoginForm() {
   var login_name_value = document.forms["loginForm"]["username"].value;
   if (login_name_value == "") {
