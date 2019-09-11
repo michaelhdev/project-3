@@ -1,35 +1,40 @@
-{% extends 'base.html'%}
-
-{% block content %}
+{% extends 'base.html'%} {% block content %}
 <div class="card login_card">
-        <div class="card-content">
-<h3>Login</h3>
-<form name="loginForm" action="{{ url_for('login') }}" onsubmit="return validateLoginForm()" method="POST">
-                <div class="row">
-                     <div class="input-field col s12">
-                        <input id="username" name="username" type="text" class="validate" minlength="2" required>
-                        <label for="username">Username<span class="required">*</span></label>
-                    </div>
-                    
-                    <div class="center-align col s12">
-                        <button id="submit" class="btn waves-effect waves-light btn_large" type="submit">Log in
+    <div class="card-content">
+        <h3>Login</h3>
+        <form name="loginForm" action="{{ url_for('login') }}" onsubmit="return validateLoginForm()" method="POST">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text" class="validate" minlength="2" required>
+                    <label for="username">Username<span class="required">*</span></label>
+                </div>
+
+                <div class="center-align col s12">
+                    <button id="submit" class="btn waves-effect waves-light btn_large" type="submit">Log in
                                         <i class="material-icons right">send</i>
                         </button>
-                    </div>
-                                        
-                    <div>
-                        {% with errors = get_flashed_messages() %} 
-                        {% if errors %} 
-                        <ul class="center-align ">
-                            {% for error in errors %}
-                            <li><strong class="errors">{{ error }}</strong></li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %} {% endwith %}
-                    </div>
-                <div><p> Test Login details: user1 & admin</p></div>
                 </div>
-            </form>
+
+                <div>
+                    {% with errors = get_flashed_messages() %} {% if errors %}
+                    <ul class="center-align ">
+                        {% for error in errors %}
+                        <li><strong class="errors">{{ error }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {% endwith %}
+                </div>
+
             </div>
-            </div>
+        </form>
+    </div>
+    <div class="card-content">
+        
+        <<strong>Test Login details:</strong> 
+        <ul>
+          <li>User Privileges = user1</li>
+          <li>Admin Privileges = admin</li>
+        </ul> 
+    </div>
+</div>
 {% endblock %}
