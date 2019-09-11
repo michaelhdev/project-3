@@ -164,17 +164,13 @@ def update_location(location_id):
     #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
     #If not update the record else display an error
     if request.form.get("original_location") == request.form.get("location_name"):
-        mongo.db.locations.update(
-        {"_id": ObjectId(location_id)},
-        {"location_name": request.form.get("location_name")})
-        mongo.db.place_names.update( {"location": request.form.get("original_location")}, { "$set": {"location": request.form.get("location_name")}}, multi=True)
-        return redirect(url_for("get_locations"))
+       return redirect(url_for("get_locations"))
     else:
         if valid_location():
             mongo.db.locations.update(
             {"_id": ObjectId(location_id)},
             {"location_name": request.form.get("location_name")})
-            mongo.db.place_names.update( {"location": request.form.get("original_location")},{ "location": request.form.get("location_name")})
+            mongo.db.place_names.update( {"location": request.form.get("original_location")},{ "location": request.form.get("location_name")}, multi=True)
             return redirect(url_for("get_locations"))
         else:
             flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
