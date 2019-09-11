@@ -1,6 +1,10 @@
 # Irish Place Names (Idea 2)
 # [Live Website](https://place-name-app.herokuapp.com/#active)
-----------
+-------------
+Login Details
+- User privileges = user1
+- Admin privileges = admin
+-----------
 
 Project aim:
 ----------
