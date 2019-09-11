@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 </head>
 
 <body>
@@ -25,22 +25,20 @@
                     {% if session['admin'] %}
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
                     <li><a href="{{url_for('get_users')}}">Manage Users</a></li>
-                    {% endif %}
-                    {% else %}
+                    {% endif %} {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
                     <li><a href="{{url_for('login_page')}}">Log In</a></li>
                     {% endif %}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                     {% if session['username'] %}
+                    {% if session['username'] %}
                     <li><a href="#">Welcome {{ session['name'].title() }}</a></li>
                     <li><a href="{{url_for('logout')}}">Log Out</a></li>
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
                     {% if session['admin'] %}
                     <li><a href="{{url_for('get_locations')}}">Manage Locations</a></li>
                     <li><a href="{{url_for('get_users')}}">Manage Users</a></li>
-                    {% endif %}
-                    {% else %}
+                    {% endif %} {% else %}
                     <li><a href="{{url_for('get_place_names')}}">Home</a></li>
                     <li><a href="{{url_for('login_page')}}">Log In</a></li>
                     {% endif %}
@@ -49,9 +47,8 @@
         </nav>
     </header>
     <div class="container">
-    {% block content %} 
-    {% endblock %}
-     </div>
+        {% block content %} {% endblock %}
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -63,7 +60,7 @@
             $(".button-collapse").sideNav();
 
         })
-        
+
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -72,26 +69,26 @@
             close: 'Ok',
             closeOnSelect: false // Close upon selecting a date,
         });
-         
-       window.location.hash = '#active';
+
+        window.location.hash = '#active';
     </script>
     <footer class="page-footer">
-          <div class="container">
+        <div class="container">
             <div class="row">
-              <div class="col l6 s12">
-                
-              </div>
-              <div class="col l4 offset-l2 s12">
-              </div>
+                <div class="col l6 s12">
+
+                </div>
+                <div class="col l4 offset-l2 s12">
+                </div>
             </div>
-          </div>
-          <div class="footer-copyright">
+        </div>
+        <div class="footer-copyright">
             <div class="container">
-            © 2019 Copyright
-            <a class="grey-text text-lighten-4 right" href="#!">Twitter</a>
+                © 2019 Copyright
+                <a class="grey-text text-lighten-4 right" href="#!">Twitter</a>
             </div>
-          </div>
-        </footer>
+        </div>
+    </footer>
 </body>
 
 </html>

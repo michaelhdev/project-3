@@ -143,6 +143,7 @@ def sort_place_names():
         return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort( sortBy ,-1), active_place_name="Initial")
     else:
         return render_template("placeNames.html", place_names=mongo.db.place_names.find().sort( sortBy ,1), active_place_name="Initial")
+
 ##########################################View functions for location##########################
 """ These functions provide the functionality to - view locations, add a location, edit a location and delete a location"""
     
@@ -200,6 +201,7 @@ def insert_location():
 @app.route("/add_location")
 def add_location():
     return render_template("addLocation.html")
+
 ###########################################View functions for user##################
 """ These functions provide the functionality to - view users, add a user, edit a user and delete a user"""
     
@@ -298,6 +300,7 @@ def logout():
 
 ###############################################View functions to add likes###############################    
 """Toggles like or dislike and returns to the active place name in the page"""
+
 @app.route("/add_like/<place_name_id>")
 def add_like(place_name_id):
     place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})

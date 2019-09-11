@@ -10,59 +10,57 @@
     margin-top: 5px;
 }
 
-.required
-{
+.required {
     color: red;
 }
 
-.login_card{
+.login_card {
     max-width: 300px;
     text-align: center;
     margin: auto;
 }
 
-.container{
+.container {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.btn_small{
+.btn_small {
     width: 100px;
 }
 
-.nav-wrapper{
+.nav-wrapper {
     background-color: #3fa13e;
 }
 
-.page-footer{
+.page-footer {
     background-color: #3fa13e;
 }
 
-.sort-button{
+.sort-button {
     text-align: center;
 }
 
-.brand-logo{
- margin-left: 10px;   
+.brand-logo {
+    margin-left: 10px;
 }
 
-.cancel-button{
+.cancel-button {
     width: 195px;
 }
 
-.save-button{
+.save-button {
     width: 195px;
 }
 
-.save-button-container{
+.save-button-container {
     margin-bottom: 20px;
 }
 
-.user-label{
+.user-label {
     color: blue;
 }
 
-.errors{
+.errors {
     color: red;
 }
-

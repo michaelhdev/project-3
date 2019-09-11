@@ -42,7 +42,7 @@ function validatePlaceNameForm() {
   var eng_name_value = document.forms["placeNameForm"]["eng_name"].value;
   var irl_name_value = document.forms["placeNameForm"]["irl_name"].value;
   var irl_meaning_value = document.forms["placeNameForm"]["irl_meaning"].value;
-  
+
   if (location_value == "") {
     alert("Location must be selected");
     return false;
