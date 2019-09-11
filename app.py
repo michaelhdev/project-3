@@ -4,11 +4,14 @@ from flask import Flask, render_template, redirect, request, url_for, session, f
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId 
 
+DB_NAME = os.getenv("DB_NAME")
+DB_URI = os.getenv("DB_URI")
+
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = "place_names_site"
+app.config["MONGO_DBNAME"] = DB_NAME
 app.secret_key = os.urandom(24)
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://root:r00tUser@myfirstcluster-bhsq8.mongodb.net/place_names_site?retryWrites=true&w=majority")
+app.config["MONGO_URI"] = DB_URI
 
 mongo = PyMongo(app)
 
@@ -171,6 +174,7 @@ def update_location(location_id):
             mongo.db.locations.update(
             {"_id": ObjectId(location_id)},
             {"location_name": request.form.get("location_name")})
+            mongo.db.place_names.update( {"location": request.form.get("original_location")}, { "$set": {"location": request.form.get("location_name")}}, multi=True)
             return redirect(url_for("get_locations"))
         else:
             flash("Location Name '{}' already exists!".format(request.form.get("location_name")))

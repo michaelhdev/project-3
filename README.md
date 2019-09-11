@@ -1,5 +1,5 @@
 # Irish Place Names (Idea 2)
-# Live [Website](https://place-name-app.herokuapp.com/#active)
+# [Live Website](https://place-name-app.herokuapp.com/#active)
 ----------
 
 Project aim:
@@ -91,7 +91,7 @@ Below are the features added to the website to provide the functionality.
 -   Login – Users that are registered in the system can log in. Users are given either user privileges or admin privileges depending on login details.
 
 -   View Place Names – shows all the place names entered by all the users - different menus and options are shown based on the users privileges 
-    ([placeNames.html])(https://github.com/michaelhdev/project-3/blob/master/templates/placeNames.html).
+    [placeNames.html](https://github.com/michaelhdev/project-3/blob/master/templates/placeNames.html).
 
 -   Add Place Name – allows a user to add a place name (Privileges - user or admin)
     [addPlaceName.html](https://github.com/michaelhdev/project-3/blob/master/templates/addPlaceName.html)
@@ -203,9 +203,9 @@ The list of technologies used for this project are listed below in no specific o
 14. AWS Cloud9
 
 ## Testing
-The application was tested constantly as it was been developed. Debugging was enabled and any issues or bugs were fixed. The test cases to ensure
+The application was tested constantly as it was being developed. Debugging was enabled during developement and any issues or bugs were fixed. The test cases to ensure
 the application was functioning as expected were derived from the user stories. Below is the list of these test cases along with the expected results.
-Errors encencountered when running the test cases have been rectified
+Errors encountered when running the test cases have been rectified
 
 ## Use Cases and expected results
 
@@ -358,11 +358,11 @@ The responsiveness was tested extensively on different devises using Chromes dev
 
 This project is deployed using [Heroku](https://id.heroku.com/login) 
 
-Git was also used extensively to back up project files to Cloud 9
+Git was also used extensively to back up project files from Cloud 9
 
 The project was developed and tested in Cloud9.
 
-It was pushed to Heroku at and early stage in the project and push regularly to ensure there were no issues. 
+It was pushed to Heroku at and early stage in the developemnt process and push regularly to ensure there were no issues. 
 
 The mongoDB name and URI were added as environment varialbles along with the usual IP and PORT variables.
 
