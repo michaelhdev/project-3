@@ -388,7 +388,7 @@ Git was used extensively to back up project files from Cloud 9
 
 The project is deployed using [Heroku](https://id.heroku.com/login) 
 
-A "place name" app was created on Heroku and this was accesses using the Heroku cli installed on cloud9. This allowed the project to be pushed to Heroku.
+A "place name" app was created on Heroku and this was accessed using the Heroku cli installed on cloud9. This allowed the project to be pushed to Heroku.
 
 A procfile and a requirements file were added to the project - this enabled Heroku to know where to run the application from and to know what requirements the project needed to run.
 
