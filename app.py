@@ -149,7 +149,7 @@ def sort_place_names():
     
 @app.route("/get_locations")
 def get_locations():
-    if session["admin"] == True:
+    if session["admin"] == "True":
         return render_template("locations.html", locations=mongo.db.locations.find()) 
     else:
         return redirect(url_for("login_page"))
@@ -212,7 +212,7 @@ def add_location():
 def get_users():
     if "username" in session:
         
-        if session["admin"] == True:
+        if session["admin"] == "True":
             return render_template("users.html", users=mongo.db.users.find())  
         else:
             return redirect(url_for("login_page"))
@@ -335,4 +335,4 @@ def add_dislike(place_name_id):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')))
+            port=int(os.environ.get('PORT')), debug=True)
