@@ -44,7 +44,7 @@ def valid_place_name():
     
 ##########################################View Functions for place names###################################################
 """ These functions provide the functionality to - view place names, add a place name, edit a place name and delete a place name"""
-
+""" Except for get_place_names and sort_place_names all other place name functions require user or admin privileges"""
 
 @app.route("/")
 @app.route("/get_place_names")
@@ -54,85 +54,97 @@ def get_place_names():
 
 @app.route("/add_place_name")
 def add_place_name():
-    return render_template("addPlaceName.html",
-                           locations=mongo.db.locations.find())
+    if "username" in session:
+        return render_template("addPlaceName.html", locations=mongo.db.locations.find())
+    else:
+        return redirect(url_for("login_page"))
                            
 @app.route("/insert_place_name", methods=["POST"])
 def insert_place_name():
-    
-    if valid_place_name():
-        place_names = mongo.db.place_names
-        place_names.insert_one(
-        {
-            "eng_name":request.form.get("eng_name"),
-            "irl_name":request.form.get("irl_name"),
-            "irl_meaning": request.form.get("irl_meaning"),
-            "history": request.form.get("history"),
-            "location":request.form.get("location"),
-            "created_by":session['username'],
-            "likes":0
-        })
-        the_active_place_name =request.form.get("eng_name")
-        the_place_names =  mongo.db.place_names.find()
-        return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+    if "username" in session:
+        if valid_place_name():
+            place_names = mongo.db.place_names
+            place_names.insert_one(
+            {
+                "eng_name":request.form.get("eng_name"),
+                "irl_name":request.form.get("irl_name"),
+                "irl_meaning": request.form.get("irl_meaning"),
+                "history": request.form.get("history"),
+                "location":request.form.get("location"),
+                "created_by":session['username'],
+                "likes":0
+            })
+            the_active_place_name =request.form.get("eng_name")
+            the_place_names =  mongo.db.place_names.find()
+            return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+        else:
+            #If its not a valid place name add error and return to page
+            flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
+            return redirect(url_for("add_place_name"))
     else:
-        #If its not a valid place name add error and return to page
-        flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
-        return redirect(url_for("add_place_name"))
-    
+        return redirect(url_for("login_page"))
     
 
 @app.route("/edit_place_name/<place_name_id>")
 def edit_place_name(place_name_id):
-    the_place_name =  mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
-    all_locations =  mongo.db.locations.find()
-    return render_template("editPlaceName.html", place_name=the_place_name,
-                           locations=all_locations) 
-
+    if "username" in session:
+        the_place_name =  mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+        all_locations =  mongo.db.locations.find()
+        return render_template("editPlaceName.html", place_name=the_place_name,
+                               locations=all_locations) 
+    else:
+        return redirect(url_for("login_page"))
+        
 @app.route("/update_place_name/<place_name_id>", methods=["POST"])
 def update_place_name(place_name_id):
+    if "username" in session:
     
-    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
-    #If not update the record else display an error
-    if request.form.get("original_eng_name") == request.form.get("eng_name"):
-        place_names = mongo.db.place_names
-        place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
-            {
-                "eng_name":request.form.get("eng_name"),
-                "irl_name":request.form.get("irl_name"),
-                "irl_meaning": request.form.get("irl_meaning"),
-                "history": request.form.get("history"),
-                "location":request.form.get("location")
-            }})
-        place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
-        the_active_place_name = place_name["eng_name"]
-        the_place_names =  mongo.db.place_names.find()
-        return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
-    else:
-        if valid_place_name():
+        #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+        #If not update the record else display an error
+        if request.form.get("original_eng_name") == request.form.get("eng_name"):
             place_names = mongo.db.place_names
             place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
-            {
-                "eng_name":request.form.get("eng_name"),
-                "irl_name":request.form.get("irl_name"),
-                "irl_meaning": request.form.get("irl_meaning"),
-                "history": request.form.get("history"),
-                "location":request.form.get("location")
-            }})
+                {
+                    "eng_name":request.form.get("eng_name"),
+                    "irl_name":request.form.get("irl_name"),
+                    "irl_meaning": request.form.get("irl_meaning"),
+                    "history": request.form.get("history"),
+                    "location":request.form.get("location")
+                }})
             place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
             the_active_place_name = place_name["eng_name"]
             the_place_names =  mongo.db.place_names.find()
             return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
         else:
-            flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
-            return redirect(url_for("edit_place_name", place_name_id=place_name_id))
+            if valid_place_name():
+                place_names = mongo.db.place_names
+                place_names.update( {"_id": ObjectId(place_name_id)},{"$set" :
+                {
+                    "eng_name":request.form.get("eng_name"),
+                    "irl_name":request.form.get("irl_name"),
+                    "irl_meaning": request.form.get("irl_meaning"),
+                    "history": request.form.get("history"),
+                    "location":request.form.get("location")
+                }})
+                place_name = mongo.db.place_names.find_one({"_id": ObjectId(place_name_id)})
+                the_active_place_name = place_name["eng_name"]
+                the_place_names =  mongo.db.place_names.find()
+                return render_template("placeNames.html", place_names=the_place_names, active_place_name=the_active_place_name)
+            else:
+                flash("Place Name '{}' already exists!".format(request.form.get("eng_name")))
+                return redirect(url_for("edit_place_name", place_name_id=place_name_id))
+    else:
+        return redirect(url_for("login_page"))  
     
      
 
 @app.route("/delete_place_name/<place_name_id>")
 def delete_place_name(place_name_id):
-    mongo.db.place_names.remove({"_id": ObjectId(place_name_id)})
-    return redirect(url_for("get_place_names"))
+    if "username" in session:
+        mongo.db.place_names.remove({"_id": ObjectId(place_name_id)})
+        return redirect(url_for("get_place_names"))
+    else:
+        return redirect(url_for("login_page")) 
     
 @app.route("/sort_place_names", methods=["POST"])
 def sort_place_names():
