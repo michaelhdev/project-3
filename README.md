@@ -357,18 +357,48 @@ Errors encountered when running the test cases have been rectified
 ## Responsiveness Testing
 The responsiveness was tested extensively on different devises using Chromes developement tools.
 
+## Defensive Forced Browsing testing
+
+### get_users, add_users, insert_user, edit_user, update_user, delete_user are called with no privileges 
+
+- user is returned to login screen
+
+### get_users, add_users, insert_user, edit_user, update_user, delete_user are called with user privileges
+
+- user is returned to login screen and logged out
+
+### get_locations, edit_location, update_location, delete_location, add_location, insert_location are called with no privileges
+
+- user is returned to the login screen
+
+### get_locations, edit_location, update_location, delete_location, add_location, insert_location are called with user privileges
+
+- user is returned to the login screen and logged out
+
+### add_place_name, insert_place_name, edit_place_name, update_place_name, delete_place name are called without privileges 
+
+- user is returned to the login screen
+
 
 ## Deployment
 
-This project is deployed using [Heroku](https://id.heroku.com/login) 
-
-Git was also used extensively to back up project files from Cloud 9
-
 The project was developed and tested in Cloud9.
 
-It was pushed to Heroku at and early stage in the developemnt process and push regularly to ensure there were no issues. 
+Git was used extensively to back up project files from Cloud 9
 
-The mongoDB name and URI were added as environment varialbles along with the usual IP and PORT variables.
+The project is deployed using [Heroku](https://id.heroku.com/login) 
+
+A "place name" app was created on Heroku and this was accesses using the Heroku cli installed on cloud9. This allowed the project to be pushed to Heroku.
+
+A procfile and a requirements file were added to the project - this enabled Heroku to know where to run the application from and to know what requirements the project needed to run.
+
+The requirements file is displayed below.
+
+<p align="center"><img src="static/images/requirements.jpg"/></p>
+
+The project was pushed to Heroku at and early stage in the developemnt process and push regularly from then on.
+
+The mongoDB name and URI were added as environment variables in Heroku along with the usual IP and PORT variables.
 
 <p align="center"><img src="static/images/envSetup.jpg"/></p>
 
