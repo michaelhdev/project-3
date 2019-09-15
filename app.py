@@ -146,65 +146,81 @@ def sort_place_names():
 
 ##########################################View functions for location##########################
 """ These functions provide the functionality to - view locations, add a location, edit a location and delete a location"""
+""" They are only accessible with admin privileges. This is checked before any action is taken """
     
 @app.route("/get_locations")
 def get_locations():
     try:
         if session["admin"] == "True":
-           return render_template("locations.html", locations=mongo.db.locations.find())
+            return render_template("locations.html", locations=mongo.db.locations.find())
     except:
             return redirect(url_for("login_page"))
       
                            
 @app.route("/edit_location/<location_id>")
 def edit_location(location_id):
-    return render_template("editLocation.html",
-                           location=mongo.db.locations.find_one(
-                           {"_id": ObjectId(location_id)}))
-
+    try:
+        if session["admin"] == "True":
+            return render_template("editLocation.html", location=mongo.db.locations.find_one({"_id": ObjectId(location_id)}))
+    except:
+            return redirect(url_for("login_page"))
 
 @app.route("/update_location/<location_id>", methods=["POST"])
 def update_location(location_id):
-    
-    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
-    #If not update the record else display an error
-    if request.form.get("original_location") == request.form.get("location_name"):
-       return redirect(url_for("get_locations"))
-    else:
-        if valid_location():
-            mongo.db.locations.update(
-            {"_id": ObjectId(location_id)},
-            {"location_name": request.form.get("location_name")})
-            mongo.db.place_names.update( {"location": request.form.get("original_location")}, {"$set": { "location": request.form.get("location_name")}}, multi=True)
-            return redirect(url_for("get_locations"))
-        else:
-            flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
-            return redirect(url_for("edit_location", location_id=location_id))
+    try:
+        if session["admin"] == "True":
+            #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+            #If not update the record else display an error
+            if request.form.get("original_location") == request.form.get("location_name"):
+                return redirect(url_for("get_locations"))
+            else:
+                if valid_location():
+                    mongo.db.locations.update(
+                    {"_id": ObjectId(location_id)},
+                    {"location_name": request.form.get("location_name")})
+                    mongo.db.place_names.update( {"location": request.form.get("original_location")}, {"$set": { "location": request.form.get("location_name")}}, multi=True)
+                    return redirect(url_for("get_locations"))
+                else:
+                    flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
+                    return redirect(url_for("edit_location", location_id=location_id))
+    except:
+            return redirect(url_for("login_page"))
         
     
 @app.route("/delete_location/<location_id>")
 def delete_location(location_id):
-    location=mongo.db.locations.find_one({"_id": ObjectId(location_id)})
-   
-    mongo.db.locations.remove({"_id": ObjectId(location_id)})
+    try:
+        if session["admin"] == "True":
+            location=mongo.db.locations.find_one({"_id": ObjectId(location_id)})
+            mongo.db.locations.remove({"_id": ObjectId(location_id)})
     
-    #delete and place names that have been assigned the location
-    mongo.db.place_names.remove({"location": location["location_name"]})
-    return redirect(url_for("get_locations"))
+            #delete and place names that have been assigned the location
+            mongo.db.place_names.remove({"location": location["location_name"]})
+            return redirect(url_for("get_locations"))
+    except:
+            return redirect(url_for("login_page"))
     
 @app.route("/insert_location", methods=["POST"])
 def insert_location():
-    if valid_location():
-        location_doc = {"location_name": request.form.get("location_name")}
-        mongo.db.locations.insert_one(location_doc)
-        return redirect(url_for("get_locations"))
-    else:
-        flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
-        return redirect(url_for("add_location"))
+    try:
+        if session["admin"] == "True":
+            if valid_location():
+                location_doc = {"location_name": request.form.get("location_name")}
+                mongo.db.locations.insert_one(location_doc)
+                return redirect(url_for("get_locations"))
+            else:
+                flash("Location Name '{}' already exists!".format(request.form.get("location_name")))
+                return redirect(url_for("add_location"))
+    except:
+            return redirect(url_for("login_page"))
 
 @app.route("/add_location")
 def add_location():
-    return render_template("addLocation.html")
+    try:
+        if session["admin"] == "True":
+            return render_template("addLocation.html")
+    except:
+        return redirect(url_for("login_page"))
 
 ###########################################View functions for user##################
 """ These functions provide the functionality to - view users, add a user, edit a user and delete a user"""
@@ -302,6 +318,7 @@ def login_page():
 @app.route("/login", methods=["POST"])
 def login():
    
+    session.clear()
     users = mongo.db.users
     user = users.find_one({"userName": request.form["username"]})
     #If the username exists in the database set up the session data otherwise return to the page
