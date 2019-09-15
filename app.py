@@ -149,8 +149,11 @@ def sort_place_names():
     
 @app.route("/get_locations")
 def get_locations():
-    return render_template("locations.html",
-                           locations=mongo.db.locations.find())  
+    if session["admin"] == True:
+        return render_template("locations.html", locations=mongo.db.locations.find()) 
+    else:
+        return redirect(url_for("login_page"))
+      
                            
 @app.route("/edit_location/<location_id>")
 def edit_location(location_id):
@@ -207,8 +210,14 @@ def add_location():
     
 @app.route("/get_users")
 def get_users():
-    return render_template("users.html",
-                           users=mongo.db.users.find())  
+    if "username" in session:
+        
+        if session["admin"] == True:
+            return render_template("users.html", users=mongo.db.users.find())  
+        else:
+            return redirect(url_for("login_page"))
+            
+    return redirect(url_for("login_page"))
 
 @app.route("/add_user")
 def add_user():
