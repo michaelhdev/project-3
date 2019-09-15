@@ -346,7 +346,7 @@ def login():
         return redirect(url_for("get_place_names"))
     else:
         flash("Username '{}' is invalid.".format(request.form["username"]))
-        return redirect(url_for("login_page"))
+        return render_template("login.html")
         
 @app.route("/logout")
 def logout():
