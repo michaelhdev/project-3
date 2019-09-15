@@ -208,7 +208,8 @@ def add_location():
 
 ###########################################View functions for user##################
 """ These functions provide the functionality to - view users, add a user, edit a user and delete a user"""
-    
+""" They are only accessible with admin privileges. This is checked before any action is taken """
+
 @app.route("/get_users")
 def get_users():
     try:
@@ -228,54 +229,65 @@ def add_user():
     
 @app.route("/insert_user", methods=["POST"])
 def insert_user():
-    
-    if valid_user():
-        user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-        mongo.db.users.insert_one(user_doc)
-        return redirect(url_for("get_users"))
-    else:
-        flash("User Name '{}' already exists!".format(request.form.get("user_name")))
-        return redirect(url_for("add_user"))
+    try:
+        if session["admin"] == "True":
+            if valid_user():
+                user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+                mongo.db.users.insert_one(user_doc)
+                return redirect(url_for("get_users"))
+            else:
+                flash("User Name '{}' already exists!".format(request.form.get("user_name")))
+                return redirect(url_for("add_user"))
+    except:
+            return redirect(url_for("login_page"))
                            
 @app.route("/edit_user/<user_id>")
 def edit_user(user_id):
-    return render_template("editUser.html",
-                           user=mongo.db.users.find_one(
-                           {"_id": ObjectId(user_id)}))
+    try:
+        if session["admin"] == "True":
+            return render_template("editUser.html", user=mongo.db.users.find_one({"_id": ObjectId(user_id)}))
+    except:
+        return redirect(url_for("login_page"))
 
 @app.route("/update_user/<user_id>", methods=["POST"])
 def update_user(user_id):
     
-    #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
-    #If not update the record else display an error
-    if request.form.get("original_user_name") == request.form.get("user_name"):
-       
-        user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-        mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
-        return redirect(url_for("get_users"))
+    try:
+        if session["admin"] == "True":
         
-    else:     
+            #Checks to see if the primary key of the record has changed, if it has check to see if there is a conflicting name in the database
+            #If not update the record else display an error
+            if request.form.get("original_user_name") == request.form.get("user_name"):
        
-        if valid_user():
-            user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
-            #Change to username on the place names table 
-            mongo.db.place_names.update( {"created_by": request.form.get("original_user_name")}, { "$set": {"created_by": request.form.get("user_name")}}, multi=True)
-            mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
-            return redirect(url_for("get_users"))
-        else:
-            flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
-            return redirect(url_for("edit_user", user_id=user_id))
-
+                user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+                mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
+                return redirect(url_for("get_users"))
+        
+            else:     
+       
+                if valid_user():
+                    user_doc = {"name": request.form.get("name"),"userName": request.form.get("user_name"),"dob": request.form.get("dob"),"admin": "False"}
+                    #Change to username on the place names table 
+                    mongo.db.place_names.update( {"created_by": request.form.get("original_user_name")}, { "$set": {"created_by": request.form.get("user_name")}}, multi=True)
+                    mongo.db.users.update({"_id": ObjectId(user_id)}, user_doc)
+                    return redirect(url_for("get_users"))
+                else:
+                    flash("New User Name '{}' already exists!".format(request.form.get("user_name")))
+                    return redirect(url_for("edit_user", user_id=user_id))
+    except:
+        return redirect(url_for("login_page"))
     
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
-    
-    user=mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    #Remove and place names created by that user
-    mongo.db.place_names.remove({"created_by": user["userName"]})
-    
-    mongo.db.users.remove({"_id": ObjectId(user_id)})
-    return redirect(url_for("get_users"))
+    try:
+        if session["admin"] == "True":
+            user=mongo.db.users.find_one({"_id": ObjectId(user_id)})
+            #Remove and place names created by that user
+            mongo.db.place_names.remove({"created_by": user["userName"]})
+            mongo.db.users.remove({"_id": ObjectId(user_id)})
+            return redirect(url_for("get_users"))
+    except:
+        return redirect(url_for("login_page"))
     
 
 
@@ -283,6 +295,8 @@ def delete_user(user_id):
 
 @app.route("/login_page")
 def login_page():
+    #clear the session if returned to the login page
+    session.clear()
     return render_template("login.html")
     
 @app.route("/login", methods=["POST"])
